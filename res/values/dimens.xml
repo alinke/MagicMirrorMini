@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * Class       : color.xml                                                    *
+ * Color definition                                                           *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : May 07, 2011                                                 *
+ * Copyright (c)-2011 DatNQ some right reserved                               *
+ * You can distribute, modify or what ever you want but WITHOUT ANY WARRANTY  *
+ * Be honest by keep credit of this file                                      *
+ *                                                                            *
+ * If you have any concern, feel free to contact with me via email, i will    *
+ * check email in free time                                                   * 
+ * Email: nguyendatnq@gmail.com                                               *
+ * ****************************************************************************
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * ****************************************************************************
+ *    *******   May 07, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+  
+<resources>
+    
+    <!-- Custom dialog -->
+    <dimen name="custom_font_size">15.0sp</dimen>
+    <dimen name="margin_space">5.0dip</dimen>
+    <dimen name="text_large">15.0sp</dimen>
+    
+    <dimen name="text_title">20.0sp</dimen>
+    <dimen name="temperature_size">30.0sp</dimen>
+    <dimen name="location_size">35.0sp</dimen>
+    <dimen name="weather_space">150.0dip</dimen>
+    <dimen name="weather_size">25.0sp</dimen>
+    
+    <!-- For context menu -->
+    <!-- Context menu -->
+    <dimen name="context_width">260.0dp</dimen>
+    <dimen name="context_height">65.0dp</dimen>
+    <dimen name="context_padding">10.0dp</dimen>
+    <dimen name="context_draw_padding">15.0dp</dimen>
+    <dimen name="context_font_size">10sp</dimen>    
+    
+    <!-- For widget -->
+    <dimen name="widget_height">110px</dimen>
+    <dimen name="widget_width">210px</dimen>
+
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * Class       : personal_information.xml                                     *
+ * Custom dialog setting                                                      *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : May 07, 2011                                                 *
+ * Copyright (c)-2011 DatNQ some right reserved                               *
+ * You can distribute, modify or what ever you want but WITHOUT ANY WARRANTY  *
+ * Be honest by keep credit of this file                                      *
+ *                                                                            *
+ * If you have any concern, feel free to contact with me via email, i will    *
+ * check email in free time                                                   * 
+ * Email: nguyendatnq@gmail.com                                               *
+ * ****************************************************************************
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * ****************************************************************************
+ *    *******   May 07, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Personal_Info"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+       
+    <ImageView
+        android:id="@+id/PersonalImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/margin_space"
+        android:src="@drawable/dat_hero_avatar">
+    </ImageView>
+  
+    <LinearLayout
+        android:id="@+id/Personal_Basic_Info"
+        android:layout_toRightOf="@id/PersonalImage"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+      
+	    <TextView
+	        android:id="@+id/Full_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_large"
+	        android:text="@string/str_full_name">
+	    </TextView>  
+	    <TextView
+	        android:id="@+id/Birthday"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="15.0dip"
+	        android:text="@string/str_birthday">
+	    </TextView> 
+	    <TextView
+	        android:id="@+id/Address"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/str_address">
+	    </TextView>      
+	    <TextView
+	        android:id="@+id/Mobile"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/str_mobile">
+	    </TextView> 
+	    <TextView
+	        android:id="@+id/Email"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/str_email">
+	    </TextView>
+    </LinearLayout>
+</RelativeLayout>

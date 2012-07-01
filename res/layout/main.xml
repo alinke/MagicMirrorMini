@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+		
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="26px">
+		<TextView
+		    android:id="@+id/notConnectedLabel"
+			android:text="@string/notConnected_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#872657"
+			android:textSize="18sp"
+			android:paddingRight="5px"
+			/>
+		
+		<TextView
+		    android:id="@+id/proximityLabel"
+			android:text="@string/proximity_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="5px"
+			/>
+	
+			<TextView
+		android:id="@+id/proximityValue"
+		android:text="0"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		/>  
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="20px">
+		<TextView
+		    android:id="@+id/potLabel"
+			android:text="@string/pot_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="5px"
+			/>
+	
+		<TextView
+			android:id="@+id/potValue"
+			android:text="0"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			/> 
+	</LinearLayout>
+
+
+<VideoView android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:id="@+id/VideoView"></VideoView>
+	
+</LinearLayout>

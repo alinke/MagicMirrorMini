@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * Class       : activity_weather_setting.xml                                 *
+ * Weather infor screen                                                       *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : May 06, 2011                                                 *
+ * Copyright (c)-2011 DatNQ some right reserved                               *
+ * You can distribute, modify or what ever you want but WITHOUT ANY WARRANTY  *
+ * Be honest by keep credit of this file                                      *
+ *                                                                            *
+ * If you have any concern, feel free to contact with me via email, i will    *
+ * check email in free time                                                   * 
+ * Email: nguyendatnq@gmail.com                                               *
+ * ****************************************************************************
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * ****************************************************************************
+ *    *******   May 06, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background">
+    
+    <!-- Weather information -->
+
+</RelativeLayout>

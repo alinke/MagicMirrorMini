@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * Class       : option_weather_screen.xml                                    *
+ * option menu                                                                *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : May 07, 2011                                                 *
+ * Copyright (c)-2011 DatNQ some right reserved                               *
+ * You can distribute, modify or what ever you want but WITHOUT ANY WARRANTY  *
+ * Be honest by keep credit of this file                                      *
+ *                                                                            *
+ * If you have any concern, feel free to contact with me via email, i will    *
+ * check email in free time                                                   * 
+ * Email: nguyendatnq@gmail.com                                               *
+ * ****************************************************************************
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * ****************************************************************************
+ *    *******   May 07, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   
+	 <item  
+	    android:id="@+id/menu_setting"
+        android:title="@string/option_menu_setting" 
+        android:icon="@drawable/icon_option_setting" 
+        android:background="@color/color_black"
+        android:textSize="10sp">
+     </item>	   			
+</menu>

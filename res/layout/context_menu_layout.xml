@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="@dimen/context_width"
+    android:layout_height="@dimen/context_height"
+    android:background="@layout/weather_selector">
+  
+  	<TextView
+  		android:id="@+id/itemLabel"
+  		android:layout_width="fill_parent"
+  		android:layout_height="fill_parent"
+  		android:gravity="center_vertical"
+  		android:padding="@dimen/context_padding"
+  		android:drawablePadding="@dimen/context_draw_padding"
+  		android:textSize="@dimen/context_font_size"
+  		android:background="@layout/weather_selector">
+  	</TextView>  
+  
+</LinearLayout>

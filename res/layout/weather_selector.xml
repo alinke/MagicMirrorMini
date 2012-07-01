@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * class       : boder.xml                                                    *
+ * Border background                                                          *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : Mar 02, 2011                                                 *
+ * Copyright (c)-2010 XANDROID Mobile Group                                   *
+ * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+ *    +++++++   Mar 02, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item 
+        android:state_enabled="false" 
+        android:state_focused="true"
+        android:drawable="@color/transparent">
+    </item>
+    
+    <item 
+        android:state_pressed="true"
+        android:drawable="@color/red_focus">
+    </item>
+    
+    <item 
+        android:state_selected="true"
+        android:drawable="@color/green_focus">
+    </item>
+
+</selector> 

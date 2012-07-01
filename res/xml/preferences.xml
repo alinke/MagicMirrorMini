@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is /res/xml/mypreferences.xml -->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="magicmirror_option_preference"
+    android:title="@string/prefTitle"
+    android:summary="@string/prefSummary">
+ <!--     <ListPreference
+    android:key="@string/selected_character"
+    android:title="@string/character"
+    android:summary="@string/listSummaryVoice"
+    android:entries="@array/character_options"
+    android:entryValues="@array/character_values"
+    android:dialogTitle="@string/dialogTitleVoice"
+    android:defaultValue="@string/character_default_value" /> -->
+  
+   <CheckBoxPreference
+    	android:title="@string/menuDebug"
+    	android:key="pref_debug"
+    	android:defaultValue="@string/pref_debugDefault"
+    	android:summary="@string/menuDebugSummary"/>     
+    	
+    <CheckBoxPreference
+    android:title="@string/menuStealthMode"
+    android:key="pref_stealth_mode"    
+    android:defaultValue="@string/pref_stealth_modeDefault"
+    android:summary="@string/menuStealthModeSummary"/>
+    
+     <CheckBoxPreference
+    android:title="@string/menuCustomMode"
+    android:key="pref_custom_mode"    
+    android:defaultValue="@string/pref_custom_modeDefault"
+    android:summary="@string/menuCustomModeSummary"/>
+    
+    <EditTextPreference
+	    android:title="@string/screenBrightness"
+	    android:key="@string/pref_screenBrightness"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/screenBrightnessDefault"
+	    android:summary="@string/screenBrightnessSummary"/> 
+	    
+     <PreferenceScreen 
+         android:title="@string/bluetooth_pair"
+         android:summary="@string/bluetooth_pairSummary">
+		    <intent android:action="android.settings.BLUETOOTH_SETTINGS">
+		    </intent>
+		</PreferenceScreen>
+    
+      	
+   <PreferenceCategory
+    android:title="@string/menuStocksTitle"  
+    android:summary="@string/menuStocksTitleSummary">        
+       
+      
+       
+       <EditTextPreference
+	    android:title="@string/goodStockThreshold"
+	    android:key="@string/pref_good_stock_value"
+	    android:numeric="signed|decimal"
+	    android:maxLength="3"
+	    android:defaultValue="@string/pref_good_stock_default_value"
+	    android:summary="@string/goodStockThresholdSummary"/>   
+	    
+        <EditTextPreference
+	    android:title="@string/badStockThreshold"
+	    android:key="@string/pref_bad_stock_value"
+	    android:numeric="signed|decimal"
+	    android:maxLength="3"
+	    android:defaultValue="@string/pref_bad_stock_default_value"
+	    android:summary="@string/badStockThresholdSummary"/>   
+    </PreferenceCategory>	
+    
+    <PreferenceCategory
+    android:title="@string/menuCalibrationTitle"  
+    android:summary="@string/menuCalibrationTitle">        
+        <CheckBoxPreference
+    android:title="@string/menuDisplayData"
+    android:key="pref_proximity_sensor"    
+    android:defaultValue="@string/pref_proximity_sensorDefault"
+    android:summary="@string/menuDisplayDataSummary"/>
+          
+        <EditTextPreference
+	    android:title="@string/menuMinimumBaseline"
+	    android:key="@string/pref_min_baseline"
+	    android:numeric="integer"
+	    android:maxLength="3"
+	    android:defaultValue="@string/min_baseline"
+	    android:summary="@string/menuMinimumBaselineSummary"/>
+	    <!--     <EditTextPreference
+	    android:title="@string/menuHighRange"
+	    android:key="@string/pref_max_value"
+	    android:numeric="integer"
+	    android:maxLength="3"
+	    android:defaultValue="@string/max_value"
+	    android:summary="@string/menuHighRangeSummary"/>   -->
+	    
+	    <EditTextPreference
+	    android:title="@string/proximityMatches"
+	    android:key="@string/pref_prox_matches"
+	    android:numeric="integer"
+	    android:maxLength="3"
+	    android:defaultValue="@string/proximityMatchesDefault"
+	    android:summary="@string/proximityMatchesSummary"/>   
+	   
+      </PreferenceCategory>
+      
+       <PreferenceCategory
+    android:title="@string/menuPinsTitle"  
+    android:summary="@string/menuPinsTitleSummary">        
+       <EditTextPreference
+	    android:title="@string/proximityPinNumber"
+	    android:key="@string/pref_prox_pinNumber"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/pref_prox_pinNumber_default_value"
+	    android:summary="@string/proximityPinNumberSummary"/>   
+	    
+      <EditTextPreference
+	    android:title="@string/potPinNumber"
+	    android:key="@string/pref_pot_pinNumber"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/pref_pot_pinNumber_default_value"
+	    android:summary="@string/potPinNumberSummary"/>   
+	    
+        <EditTextPreference
+	    android:title="@string/weatherPinNumber"
+	    android:key="@string/pref_weather_pinNumber"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/pref_weather_pinNumber_default_value"
+	    android:summary="@string/weatherPinNumberSummary"/>   
+	    
+        <EditTextPreference
+	    android:title="@string/stockPinNumber"
+	    android:key="@string/pref_stock_pinNumber"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/pref_stock_pinNumber_default_value"
+	    android:summary="@string/stockPinNumberSummary"/>   
+	    
+        <EditTextPreference
+	    android:title="@string/ledPinNumber"
+	    android:key="@string/pref_led_pinNumber"
+	    android:numeric="integer"
+	    android:maxLength="2"
+	    android:defaultValue="@string/pref_led_pinNumber_default_value"
+	    android:summary="@string/ledPinNumberSummary"/>   
+	    
+      
+    </PreferenceCategory>	
+      
+       <!--  
+        <PreferenceCategory
+    android:title="@string/menuTexttoSpeechTitle"  
+    android:summary="@string/menuTexttoSpeechTitle">
+        <EditTextPreference
+	    android:title="@string/level1Result"
+	    android:key="@string/pref_tts_no_drinks"
+	    android:summary="@string/menuTTSText"
+	    android:defaultValue="@string/tts_no_drinks" />
+	    <EditTextPreference
+	    android:title="@string/level2Result"
+	    android:key="@string/pref_tts_few_drinks"
+	    android:summary="@string/menuTTSText"
+	    android:defaultValue="@string/tts_few_drinks"/>
+	    <EditTextPreference
+	    android:title="@string/level3Result"
+	    android:key="@string/pref_tts_buzzed"
+	    android:summary="@string/menuTTSText"
+	    android:defaultValue="@string/tts_buzzed"/>
+	    <EditTextPreference
+	    android:title="@string/level4Result"
+	    android:key="@string/pref_tts_drunk"
+	    android:summary="@string/menuTTSText"
+	    android:defaultValue="@string/tts_drunk"/>
+      </PreferenceCategory>
+      
+              
+        <PreferenceCategory
+	    android:title="@string/menuSocialMediaTitle"  
+	    android:summary="@string/menuSocialMediaTitleSummary">
+        
+        <CheckBoxPreference
+	    android:title="@string/menuTweetResults"
+	    android:key="pref_tweet"
+	    android:defaultValue="@string/pref_twitter_post_default"
+	    android:summary="@string/menuTweetResultsSummary"/>
+	    
+	    <CheckBoxPreference
+	    android:title="@string/menuFacebookPosts"
+	    android:key="pref_facebook_post"
+	    android:defaultValue="@string/pref_facebook_post_default"
+	    android:summary="@string/menuFacebookPostsSummary"/>
+	    
+	     
+	    <CheckBoxPreference
+	    android:title="@string/menuFacebookFriends"
+	    android:key="pref_facebook_friends"
+	    android:summary="@string/menuFacebookFriendsSummary"/>
+      
+        <CheckBoxPreference
+	    android:title="@string/menuIncludeLocation"
+	    android:key="pref_tweet_gps"
+	    android:summary="@string/menuIncludeLocationSummary"/>
+	  
+         
+        <EditTextPreference
+	    android:title="@string/menuLevel1Post"
+	    android:key="@string/pref_tweet_no_drinks"
+	    android:summary="@string/postTextSummary"
+	    android:defaultValue="@string/tweet_no_drinks" />        
+	    <EditTextPreference
+	    android:title="@string/menuLevel2Post"
+	    android:key="@string/pref_tweet_few_drinks"
+	    android:summary="@string/postTextSummary"
+	    android:defaultValue="@string/tweet_few_drinks"/>
+	    <EditTextPreference
+	    android:title="@string/menuLevel3Post"
+	    android:key="@string/pref_tweet_buzzed"
+	    android:summary="@string/postTextSummary"
+	    android:defaultValue="@string/tweet_buzzed"/>
+	    <EditTextPreference
+	    android:title="@string/menuLevel4Post"
+	    android:key="@string/pref_tweet_drunk"
+	    android:summary="@string/postTextSummary"
+	    android:defaultValue="@string/tweet_drunk"/>
+      </PreferenceCategory>
+        -->
+     
+   </PreferenceScreen>

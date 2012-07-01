@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+	<TextView 
+		android:id="@+id/HeaderSpace"
+		android:layout_below="@+id/title_header"
+		android:layout_width="fill_parent" 
+		android:layout_height="2dip"
+		android:background="@color/color_white" >
+	</TextView>	
+	
+	<RelativeLayout
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:background="@drawable/weather_background"
+	    android:layout_centerInParent="true">	
+		    
+		<LinearLayout
+			android:id="@+id/Country"
+			android:layout_centerInParent="true"
+	    	android:orientation="vertical"
+		    android:layout_below="@+id/HeaderSpace"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+		    android:background="@layout/boder">
+
+			<TextView
+			    android:id="@+id/TextView01"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="15dip"
+			    android:gravity="center_horizontal"
+			    android:text="Set Weather Location"
+			    android:textSize="25dip" />
+			
+			<EditText
+				android:id="@+id/inputCountry"
+				android:gravity="top|left"
+				android:layout_width="250dip"
+				android:layout_height="50dip"
+				android:layout_marginLeft="15dip"
+				android:layout_marginRight="15dip"
+				android:hint="Input Location"
+				android:inputType="textVisiblePassword"
+				android:singleLine="true"
+				android:textSize="20dip"
+				android:textColor="@color/color_black">
+			</EditText>
+			
+			<!-- 
+			<TextView
+				android:id="@+id/hintCity"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="15dip"
+				android:layout_marginRight="15dip"
+				android:layout_weight="1"
+				android:text="City"
+				android:textSize="15dip"
+				android:gravity="center_horizontal">
+			</TextView>
+			
+			<EditText
+				android:id="@+id/inputCity"
+				android:gravity="top|left"
+				android:layout_width="250dip"
+				android:layout_height="50dip"
+				android:layout_marginLeft="15dip"
+				android:layout_marginRight="15dip"
+				android:hint="Input City"
+				android:textSize="20dip"
+				android:textColor="@color/color_black">
+			</EditText>	
+			 -->
+			
+			<LinearLayout
+				android:id="@+id/Search"
+				android:layout_gravity="center_horizontal"
+		    	android:orientation="horizontal"
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content"
+			    android:layout_marginBottom="5dip">
+
+				<Button
+					android:id="@+id/btnSearch"
+					android:layout_width="100dip"
+					android:layout_height="50dip"
+					android:text="Seach Now">
+				</Button>							    
+			</LinearLayout>
+			
+
+		    			
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/TextView02"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:layout_marginTop="17dp"
+		    android:gravity="center_horizontal"
+		    android:text="Current Location"
+		    android:textSize="20dip" />
+
+		<TextView
+		    android:id="@+id/weatherCityTextView"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_below="@+id/TextView02"
+		    android:gravity="center_horizontal"
+		    android:text="***"
+		    android:textColor="#CD0000"
+		    android:textSize="20dip" />
+
+	</RelativeLayout>
+</RelativeLayout>

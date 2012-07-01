@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/oneStock"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:maxLength="5"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="23dp"
+            android:layout_toRightOf="@+id/oneStock"
+            android:onClick="addItems"
+            android:text="Add New Stock" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+		android:text="Long Tap to Remove a Stock"
+		android:textColor="#CD0000"
+		android:textSize="20dip"	
+		>
+      
+    </TextView>
+
+<ListView
+android:id="@android:id/list"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:drawSelectorOnTop="false"
+/>
+</LinearLayout>

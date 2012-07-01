@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/******************************************************************************
+ * Class       : dimens.xml                                                   *
+ * dimen definition                                                           *
+ *                                                                            *
+ * Version     : v1.0                                                         *
+ * Date        : May 07, 2011                                                 *
+ * Copyright (c)-2011 DatNQ some right reserved                               *
+ * You can distribute, modify or what ever you want but WITHOUT ANY WARRANTY  *
+ * Be honest by keep credit of this file                                      *
+ *                                                                            *
+ * If you have any concern, feel free to contact with me via email, i will    *
+ * check email in free time                                                   * 
+ * Email: nguyendatnq@gmail.com                                               *
+ * ****************************************************************************
+ * Modification Logs:                                                         *
+ *   KEYCHANGE  DATE          AUTHOR   DESCRIPTION                            *
+ * ****************************************************************************
+ *    *******   May 07, 2011  DatNQ    Create new                             *
+ ******************************************************************************/
+  -->
+<resources>
+    <!-- Help Screen -->
+    <color name="custom_startup_color">#FFFFFFFF</color>
+    <color name="title_Color">#FFFFFFFF</color>
+    <color name="color_black">#000000</color>
+    <color name="color_white">#FFFFFFFF</color>
+    
+    <color name="green_focus">#70acfe01</color>
+    <color name="red_focus">#7DF42A41</color>
+    <color name="transparent">#00FFFFFF</color>    
+</resources>
