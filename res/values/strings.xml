@@ -63,7 +63,13 @@
 <string name="drinkometer">Drink-O-Meter</string> 
 <string name="notConnectedLabel">Not Connected</string>   
 <string name="FindPLacesButtonString">Nearby Places/Check In</string>  
-<string name="pref_proximity_sensor">true</string>    
+<string name="pref_proximity_sensor"></string> 
+
+<string name="pref_pot_sensor"></string> 
+<string name="pref_pot_sensorDefault">false</string> 
+
+ 
+
 
 <string name="menuStealthMode">Stealth Mode</string> 
 <string name="pref_stealth_mode">pref_stealth_mode</string> 
@@ -177,14 +183,25 @@
 <string name="menuSimulationMode">Simulation Mode</string>   
 <string name="menuSimulationModeSummary">Run without the alcohol detector hardware</string>   
 <string name="menuCountdown">Countdown</string>   
-<string name="menuCountdownSummary">How long the user should blow in seconds</string>   
-<string name="menuCalibrationTitle">Proximity Sensor Settings</string>     
+<string name="menuCountdownSummary">How long the user should blow in seconds</string> 
+
+
+<string name="enabledSensorsTitle">Enabled Sensors</string>     
 <string name="menuDisplayData">Proximity Sensor</string>   
-<string name="menuDisplayDataSummary">Turn on the proximity sensor</string>  
-<string name="menuMinimumBaseline">Proximity Distance</string>   
-<string name="menuMinimumBaselineSummary">The distance in inches where the proximity video response will trigger</string>  
+<string name="menuDisplayDataSummary">Turn on the proximity sensor</string> 
+<string name="characterChangePot">Character Change Potentiometer</string>   
+<string name="characterChangePotSummary">Turn on character change potentiometer</string> 
+
+
+
+  
+<string name="menuCalibrationTitle">Proximity Sensor Settings</string>     
+ 
+
+<string name="menuMinimumBaseline">Proximity Lower Range</string>   
+<string name="menuMinimumBaselineSummary">Prox sensor lower range</string>  
 <string name="menuHighRange">Proximity Upper Range</string>   
-<string name="menuHighRangeSummary">The high range in inches</string>  
+<string name="menuHighRangeSummary">Prox sensor upper range</string>  
 <string name="menuDebug">Verbose</string>   
 <string name="menuDebugSummary">Displays proximity sensor and potentiometer data</string>  
 <string name="menuTexttoSpeechTitle">Text to Speech Settings</string>   
@@ -377,7 +394,7 @@
     
     <string name="weather_menu_setting">Set Weather Location</string>
     <string name="bluetooth_pair">Blueooth Pairing</string>
-    <string name="bluetooth_pairSummary">Shortcut to the Bluetooth settings screen. Pair to IOIO using code: 4545</string>
+    <string name="bluetooth_pairSummary">Shortcut to the Bluetooth settings screen. Pair to a PIXEL Board using code: 0000 or if using a IOIO board, use code: 4545</string>
     
      
     <!-- For stocks preferences -->

@@ -72,13 +72,24 @@
     </PreferenceCategory>	
     
     <PreferenceCategory
-    android:title="@string/menuCalibrationTitle"  
-    android:summary="@string/menuCalibrationTitle">        
-        <CheckBoxPreference
+    android:title="@string/enabledSensorsTitle"  
+    android:summary="@string/enabledSensorsTitle">        
+    <CheckBoxPreference
     android:title="@string/menuDisplayData"
     android:key="pref_proximity_sensor"    
     android:defaultValue="@string/pref_proximity_sensorDefault"
     android:summary="@string/menuDisplayDataSummary"/>
+    <CheckBoxPreference
+    android:title="@string/characterChangePot"
+    android:key="pref_pot_sensor"    
+    android:defaultValue="@string/pref_pot_sensorDefault"
+    android:summary="@string/characterChangePotSummary"/>    
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+    android:title="@string/menuCalibrationTitle"  
+    android:summary="@string/menuCalibrationTitle">        
+      
           
         <EditTextPreference
 	    android:title="@string/menuMinimumBaseline"
@@ -87,13 +98,14 @@
 	    android:maxLength="3"
 	    android:defaultValue="@string/min_baseline"
 	    android:summary="@string/menuMinimumBaselineSummary"/>
-	    <!--     <EditTextPreference
+        
+	     <EditTextPreference
 	    android:title="@string/menuHighRange"
 	    android:key="@string/pref_max_value"
 	    android:numeric="integer"
 	    android:maxLength="3"
 	    android:defaultValue="@string/max_value"
-	    android:summary="@string/menuHighRangeSummary"/>   -->
+	    android:summary="@string/menuHighRangeSummary"/>  
 	    
 	    <EditTextPreference
 	    android:title="@string/proximityMatches"

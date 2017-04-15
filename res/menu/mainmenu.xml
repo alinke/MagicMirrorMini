@@ -17,6 +17,7 @@ android:title="@string/menu_about_title"
 android:icon="@drawable/ic_menu_info_details"
 />
 
+<!--  -->
 <item  
 android:id="@+id/menu_setting"
 android:title="@string/option_menu_setting" 
