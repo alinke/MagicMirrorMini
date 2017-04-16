@@ -46,6 +46,43 @@
 		    <intent android:action="android.settings.BLUETOOTH_SETTINGS">
 		    </intent>
 		</PreferenceScreen>
+		
+    <PreferenceCategory
+    android:title="@string/weatherSettingsTitle"  
+    android:summary="@string/weatherSettingsTitleSummary">   
+	
+   
+    <EditTextPreference
+	    android:title="@string/weatherZip"
+	    android:key="@string/pref_weatherZip"
+	    android:maxLength="15"
+	    android:defaultValue="@string/pref_weatherZipDefault"
+	    android:summary="@string/pref_weatherZipSummary"/>   
+	    
+     <EditTextPreference
+	    android:title="@string/weatherCity"
+	    android:key="@string/pref_weatherCity"
+	    android:defaultValue="@string/weatherCityDefault"
+	    android:summary="@string/weatherCityDefaultSummary"/>   
+	    
+   
+    <ListPreference
+    android:key="@string/pref_weatherCountry"
+    android:title="@string/weatherCountryTitle"
+    android:summary="@string/weatherCountrySummary"
+    android:entries="@array/country_options"
+    android:entryValues="@array/country_values"
+    android:dialogTitle="@string/weatherCountrySummaryDialogTitle"
+    android:defaultValue="@string/weatherCountryDefault" />
+    
+     <EditTextPreference
+	    android:title="@string/OpenWeatherMapAPIKey"
+	    android:key="@string/pref_openWeatherMapAPI"
+	    android:maxLength="40"
+	    android:defaultValue="@string/openWeatherMapAPIDefault"
+	    android:summary="@string/openWeatherMapAPISummary"/>   
+    
+    </PreferenceCategory>
     
       	
    <PreferenceCategory
@@ -73,17 +110,32 @@
     
     <PreferenceCategory
     android:title="@string/enabledSensorsTitle"  
-    android:summary="@string/enabledSensorsTitle">        
+    android:summary="@string/enabledSensorsTitle">  
+          
     <CheckBoxPreference
     android:title="@string/menuDisplayData"
     android:key="pref_proximity_sensor"    
     android:defaultValue="@string/pref_proximity_sensorDefault"
     android:summary="@string/menuDisplayDataSummary"/>
+    
     <CheckBoxPreference
     android:title="@string/characterChangePot"
     android:key="pref_pot_sensor"    
     android:defaultValue="@string/pref_pot_sensorDefault"
     android:summary="@string/characterChangePotSummary"/>    
+    
+    <CheckBoxPreference
+    android:title="@string/weatherPinTouch"
+    android:key="pref_weatherPinTouch"    
+    android:defaultValue="@string/pref_weatherPinTouchDefault"
+    android:summary="@string/weatherPinTouchSummary"/>    
+    
+    <CheckBoxPreference
+    android:title="@string/stockPinTouch"
+    android:key="pref_stockPinTouch"    
+    android:defaultValue="@string/pref_stockPinTouchDefault"
+    android:summary="@string/stockPinTouchSummary"/>  
+    
     </PreferenceCategory>
     
     <PreferenceCategory
@@ -93,18 +145,19 @@
           
         <EditTextPreference
 	    android:title="@string/menuMinimumBaseline"
-	    android:key="@string/pref_min_baseline"
+	    android:key="@string/pref_proxLowerRange"
 	    android:numeric="integer"
 	    android:maxLength="3"
-	    android:defaultValue="@string/min_baseline"
+	    android:defaultValue="@string/proxLowerRangeDefault"
 	    android:summary="@string/menuMinimumBaselineSummary"/>
+
         
-	     <EditTextPreference
+	    <EditTextPreference
 	    android:title="@string/menuHighRange"
-	    android:key="@string/pref_max_value"
+	    android:key="@string/pref_proxUpperRange"
 	    android:numeric="integer"
 	    android:maxLength="3"
-	    android:defaultValue="@string/max_value"
+	    android:defaultValue="@string/proxUpperRangeDefault"
 	    android:summary="@string/menuHighRangeSummary"/>  
 	    
 	    <EditTextPreference

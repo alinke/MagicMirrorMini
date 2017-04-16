@@ -30,10 +30,17 @@
 <string name="tts_drunk">You are quite drunk!</string>  
 <string name="pref_countdown">pref_countdown</string> 
 <string name="countdown_duration">6</string>
-<string name="pref_min_baseline">pref_min_baseline</string>   
-<string name="min_baseline">8</string>
+
+<string name="pref_proxLowerRange">pref_proxLowerRange</string>   
+<string name="proxLowerRangeDefault">200</string>
+
+<string name="pref_proxUpperRange">pref_proxUpperRange</string>   
+<string name="proxUpperRangeDefault">280</string>
+
 <string name="pref_max_value">pref_max_value</string>       
 <string name="max_value">12</string>  
+
+
 <string name="pref_friend_phone">pref_friend_phone</string> 
 <string name="friend_phone">4085550100</string>  
 <string name="pref_taxi_phone">pref_taxi_phone</string> 
@@ -199,9 +206,9 @@
  
 
 <string name="menuMinimumBaseline">Proximity Lower Range</string>   
-<string name="menuMinimumBaselineSummary">Prox sensor lower range</string>  
+<string name="menuMinimumBaselineSummary">The lower range of the proximity sensor. The proximity sensor will trigger when the proximity sensor value is between the lower and upper range. Turn on Verbose (above in Settings) to see the proximity sensor values and calibrate.</string>  
 <string name="menuHighRange">Proximity Upper Range</string>   
-<string name="menuHighRangeSummary">Prox sensor upper range</string>  
+<string name="menuHighRangeSummary">The upper range of the proximity sensor.</string>  
 <string name="menuDebug">Verbose</string>   
 <string name="menuDebugSummary">Displays proximity sensor and potentiometer data</string>  
 <string name="menuTexttoSpeechTitle">Text to Speech Settings</string>   
@@ -410,13 +417,13 @@
     <string name="badStockThresholdSummary">If the sum loss of your stocks is below this value, the bad day for Stocks video will play. If the loss or gain is between the good and bad, the ok stock response plays.</string>
 
      <!-- For pins preferences -->  
-    <string name="menuPinsTitle">IOIO Pins</string>
+    <string name="menuPinsTitle">IOIO / PIXEL Pins</string>
     <string name="menuPinsTitleSummary">You can just use the default pins settings or change them</string>
     
     <string name="proximityPinNumber">Proximity Sensor Pin</string>
     <string name="pref_prox_pinNumber">pref_prox_pinNumber</string>
     <string name="pref_prox_pinNumber_default_value">34</string>
-    <string name="proximityPinNumberSummary">Pin number of the proximity sensor. Use the Maxbotiz EZ series of proximity sensors.</string>
+    <string name="proximityPinNumberSummary">Pin number of the proximity sensor. Use the Maxbotiz EZ series of proximity sensors or the Sharp IR proximity sensor.</string>
      
     <string name="potPinNumber">Potentiometer Pin</string>
     <string name="pref_pot_pinNumber">pref_pot_pinNumber</string>
@@ -436,12 +443,49 @@
     <string name="ledPinNumber">LED Pin</string>
     <string name="pref_led_pinNumber">pref_led_pinNumber</string>
     <string name="pref_led_pinNumber_default_value">38</string>
-    <string name="ledPinNumberSummary">Pin number of the LED</string>
+    <string name="ledPinNumberSummary">Pin number of the LED indicator</string>
     
     <string name="menuCustomMode">Custom Videos</string>
     <string name="pref_custom_mode">pref_custom_mode</string>
     <string name="pref_custom_modeDefault">false</string>
     <string name="menuCustomModeSummary">Add   custom video responses from your SD card. Refer to the documentation for the required SD card path and file naming conventions.</string>
-
+    
+	<string name="weatherPinTouch">Weather Touch Sensor</string> 
+	<string name="pref_weatherPinTouch">pref_weatherPinTouch</string> 
+	<string name="pref_weatherPinTouchDefault">false</string> 
+	<string name="weatherPinTouchSummary">Turn on if the weather switch is a touch sensor, leave off if it is a normal momentary push button</string> 
+	
+	<string name="stockPinTouch">Stock Touch Sensor</string> 
+	<string name="pref_stockPinTouch">pref_weatherPinTouch</string> 
+	<string name="pref_stockPinTouchDefault">false</string> 
+	<string name="stockPinTouchSummary">Turn on if the stock switch is a touch sensor, leave off if it is a normal momentary push button</string> 
+	    
+	
+	 <!-- For weather settings -->  
+    <string name="weatherSettingsTitle">Weather Settings</string>
+    <string name="weatherSettingsTitleSummary">Enter your information here for the weather readout function</string>
+    
+    <string name="weatherZip">Your US Zip Code</string>
+    <string name="pref_weatherZip">pref_weatherZip</string>
+    <string name="pref_weatherZipDefault">95050</string>
+    <string name="pref_weatherZipSummary">Enter your US zip code. If not in the US, then enter your City below.</string>
+    
+    <string name="pref_weatherCountry">pref_weatherCountry</string>
+    <string name="weatherCountryTitle">Country</string>
+    <string name="weatherCountrySummary">Select Your Country</string>
+    <string name="weatherCountrySummaryDialogTitle">Countries</string>
+    <string name="weatherCountryDefault">US</string>
+    
+    <string name="weatherCity">Your City</string>
+    <string name="pref_weatherCity">pref_weatherCity</string>
+    <string name="weatherCityDefault"></string>
+    <string name="weatherCityDefaultSummary">Only enter your city if it is outside of the United States. Enter your zip code above and leave this blank if you are in the US.</string>
+     
+    <string name="OpenWeatherMapAPIKey">Your Weather API Key</string>
+    <string name="pref_openWeatherMapAPI">pref_openWeatherMapAPI</string>
+    <string name="openWeatherMapAPIDefault"></string>
+    <string name="openWeatherMapAPISummary">You will need to register for a free Open Weather Map API Key at http://openweathermap.com/api and then enter this key here</string>
+    
+   
     
 </resources>

@@ -151,8 +151,6 @@ public class magicmirror extends IOIOActivity   {
 	private boolean stealth;
 	private boolean proximity_sensor;
 	private boolean custom_videos;
-	private int min_baseline;
-	private int max_value;	
 	private double stock_goodThreshold;
 	private double stock_badThreshold;
 	private int character;
@@ -205,55 +203,10 @@ public class magicmirror extends IOIOActivity   {
 	private String statusReadyText;
 	private String statusNotconnectedText;
 	private String blowPrompt;
-	private String weatherCity;
 	
 	
-	/** Change location */
-	private static final int REG_CHANGELOCATION = 1;	
-	/** Request get location */
 	private static final int REG_CHANGESTOCKS = 5;	
-	/** Request get location */
-	private static final int REG_GET_WEATHER_START = 100;	
-	/** Request get location finish */
-	private static final int REG_GET_WEATHER_FINISH = 101;	
-	/** Frequency update */
-	private static final int ONE_MINUTE = 60*1000;	
-	/** Context menu */
-	private static final int MENU_CONTEXT_0 = 0;		
-	/** Context menu */
-	private static final int MENU_CONTEXT_1 = 1;	
-	/** Context menu */
-	private static final int MENU_CONTEXT_2 = 2;	
-	/** Item 1 */
-	private static final int SELECT_ITEM_1 = 0;	
-	/** Item 2 */
-	private static final int SELECT_ITEM_2 = 1;	
-	/** Item 3 */
-	private static final int SELECT_ITEM_3 = 2;	
-	/** Weather infomation */
-	/*private WeatherInfo m_WeatherInfo;	
-	*//** Weather setting *//*
-	private WeatherPreferences m_Preferneces;	
-	*//** Model data *//*
-	private WeatherDataModel m_DataModel;*/
-	/** Icon */
-	//private ImageView m_WeatherIcon;
-	/** Handle request */
-	Handler m_HandleRequest;
-	/** Dialog */
-	//ProgressDialog m_ProgressDialog;	
-	/** Dialog */
-	AlertDialog m_Dialog;		
-	/** Runable */
-	Runnable m_Runnable;	
-	/** For adapter of dialog */
-	/*private ContextMenuAdapter m_contextAdapter;	*/
-	/** Dialog */
-	AlertDialog m_Alert;
-		/** Temperature */
-	private String s_Temperature;		
-	private String s_Humimidy;	
-	private String s_Visibility;
+	
 	private int weatherCode;
 	public static String weatherIconCode;
 	private String weatherCondition;
@@ -275,6 +228,21 @@ public class magicmirror extends IOIOActivity   {
     private String stockBadCustomPath = "/sdcard/Videos/stock_down_custom.3gp";
     private String proximity1CustomPath = "/sdcard/Videos/proximity1_custom.3gp";
     private String proximity2CustomPath = "/sdcard/Videos/proximity2_custom.3gp";
+    
+    //private String WeatherZipCountry = "95050,US";
+    private String weatherZip_ = "95050";
+    private String weatherCity_ = "";
+    private String weatherCountry_ = "US";
+    private String openWeatherMapAPIKey_ = "";
+    private Boolean characterChangePot_ = false;
+    private Boolean weatherTouchSensor_ = false;
+    private Boolean stockTouchSensor_ = false;
+    private int proxLowerRange_;
+    private int proxUpperRange_;
+    
+    private String weatherIcon_;
+    
+    
 
     @SuppressLint("NewApi")
 	@Override
@@ -404,16 +372,23 @@ public class magicmirror extends IOIOActivity   {
 	        	return;
 	        }	*/
 			        
-	        ///********** weather and stock updates functions*********
-			
-	        new getWeatherCodeTask(
-                    "San Francisco",
-                    textViewResult).execute();
-	        
 	     
-	        
-	        //requestUpdateWeather();  //old yahoo broken api
-			stockUpdate();
+		 
+		 ///********** weather and stock updates functions*********
+		   
+		 /* if (weatherCity_ == "") {
+			  new getWeatherCodeTask(weatherZip_,"",textViewResult).execute();
+		   }
+		  
+		  else {
+			  new getWeatherCodeTask(weatherZip_,weatherCity_ +"," + weatherCountry_, textViewResult).execute();
+		  }
+		 */
+		 
+	      new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
+		 
+		  
+		  stockUpdate();
 		 //**************************************
 		 
     } //end main function
@@ -1068,7 +1043,7 @@ public class magicmirror extends IOIOActivity   {
 					if (debug == true) { setProx(Double.toString(proxRead));}
 					
 					
-					if (proxRead < min_baseline && playingFlag == 0) {
+					if (proxRead < proxLowerRange_ && playingFlag == 0) {
 						
 						proxCounter++;
 						//led_.setDutyCycle(60);
@@ -1096,13 +1071,12 @@ public class magicmirror extends IOIOActivity   {
 					}
 					
 					if (weatherSwitchValue == false && playingFlag == 0) {
-							//requestUpdateWeather(); //get the latest weather
+						
+						new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
 							
-							new getWeatherCodeTask(
-				                    "San Francisco",
-				                    textViewResult).execute();
-							
-							playingFlag = 1;
+							//to do should we move this into async task?
+						  
+						    playingFlag = 1;
 							screenOn();
 							
 							if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
@@ -1123,7 +1097,7 @@ public class magicmirror extends IOIOActivity   {
 					}
 					
 					if (stockSwitchValue == false && playingFlag == 0) {
-						//showToast("went to stock");
+						
 						playingFlag = 1;
 						stockUpdate(); //this was causing problems
 									
@@ -1480,20 +1454,20 @@ public class magicmirror extends IOIOActivity   {
     	
     	super.onActivityResult(reqCode, resCode, data);
     	
-    	switch (reqCode){
-    	case REG_CHANGELOCATION:
+    	/*switch (reqCode){
+    	//case REG_CHANGELOCATION:
     		//updateDataOfCurrentLocation();
-    		//showToast("went here after onactivity weather");
-    		break;
+    	
+    		//break;
     	//case REG_CHANGESTOCKS: //this means the stocks were changed so we need to update the variables
     		//SharedPreferences prefs = getSharedPreferences("stocklist", MODE_PRIVATE ); 
         	//stocksCSVString = prefs.getString("stocks","");
-        	//showToast("stock string: " + stocksCSVString);
+        	
         //	break;
     		default:
     			//Log.w(TAG,"Not handle request code:"+ reqCode);
     		break;
-    	}
+    	}*/
     	
     	// if (debug == true) {
     	//	 Toast.makeText(getBaseContext(), "On Activity Result Code: " + reqCode, Toast.LENGTH_LONG).show();
@@ -1520,14 +1494,34 @@ public class magicmirror extends IOIOActivity   {
      stealth = prefs.getBoolean("pref_stealth_mode", false);
      custom_videos = prefs.getBoolean("pref_custom_mode", false);
      
+     weatherZip_ = prefs.getString(   
+   	        resources.getString(R.string.pref_weatherZip),
+   	        resources.getString(R.string.pref_weatherZipDefault)); 
      
-     min_baseline = Integer.valueOf(prefs.getString(   
- 	        resources.getString(R.string.pref_min_baseline),
- 	        resources.getString(R.string.min_baseline)));  
-    
-     max_value = Integer.valueOf(prefs.getString(   
-  	        resources.getString(R.string.pref_max_value),
-  	        resources.getString(R.string.max_value)));  
+     weatherCity_ = prefs.getString(   
+    	        resources.getString(R.string.pref_weatherCity),
+    	        resources.getString(R.string.weatherCityDefaultSummary)); 
+     
+     openWeatherMapAPIKey_ = prefs.getString(   
+    	        resources.getString(R.string.pref_openWeatherMapAPI),
+       	        resources.getString(R.string.openWeatherMapAPIDefault)); 
+     
+     weatherCountry_ = prefs.getString(   
+    	        resources.getString(R.string.pref_weatherCountry),
+       	        resources.getString(R.string.weatherCountryDefault));
+     
+     
+     characterChangePot_ = prefs.getBoolean("pref_pot_sensor", false);  
+     weatherTouchSensor_ = prefs.getBoolean("pref_weatherPinTouch", false);
+     stockTouchSensor_ = prefs.getBoolean("pref_stockPinTouch", false);
+     
+     proxLowerRange_ = Integer.valueOf(prefs.getString(   
+ 	        resources.getString(R.string.pref_proxLowerRange),
+ 	        resources.getString(R.string.proxLowerRangeDefault)));  
+     
+     proxUpperRange_ = Integer.valueOf(prefs.getString(   
+   	        resources.getString(R.string.pref_proxUpperRange),
+   	        resources.getString(R.string.proxUpperRangeDefault))); 
      
      brightness = Integer.valueOf(prefs.getString(   
   	        resources.getString(R.string.pref_screenBrightness),
@@ -1545,7 +1539,7 @@ public class magicmirror extends IOIOActivity   {
   	        resources.getString(R.string.pref_bad_stock_value),
   	        resources.getString(R.string.pref_bad_stock_default_value)));  
      
-    proximityPinNumber = Integer.valueOf(prefs.getString(   
+     proximityPinNumber = Integer.valueOf(prefs.getString(   
    	        resources.getString(R.string.pref_prox_pinNumber),
    	        resources.getString(R.string.pref_prox_pinNumber_default_value)));  
      
@@ -1568,564 +1562,6 @@ public class magicmirror extends IOIOActivity   {
      updatePrefs(); //if the user turned off verbose or stealth, then dynamically update that here
     
  }
-   
-/*///****** weather functions here *****
-   
-	private AlertDialog createContextMenuSetting(Context context){
-		 Crate menu list 
-		AlertDialog dialogMenu = null;
-		List<ContextMenuItem> arrMenuItem = null;
-		AlertDialog.Builder contextMenu = new AlertDialog.Builder(context);
-
-		 Create menu item of context menu 
-		arrMenuItem = _createContextMenuList();
-		if (arrMenuItem == null){
-			Log.e(TAG,"Can note create dialog item");
-			return null;
-		}
-
-		this.m_contextAdapter = new ContextMenuAdapter(context,
-				0, arrMenuItem);
-		contextMenu.setAdapter(m_contextAdapter, new HandleSelectContextMenu());
-		contextMenu.setInverseBackgroundForced(true);
-		contextMenu.setTitle(R.string.title_context_menu_setting);
-		contextMenu.setIcon(R.drawable.ic_context_menu);
-		
-		dialogMenu = contextMenu.create();
-		dialogMenu.setCanceledOnTouchOutside(true);
-		
-		return dialogMenu;
-	}
-	
-	private List<ContextMenuItem> _createContextMenuList(){
-		ArrayList<ContextMenuItem> arrMenuItem = new ArrayList<ContextMenuItem>();
-
-		 Create first menu item base on menu state 
-		ContextMenuItem itemContext1 = new ContextMenuItem(
-				MENU_CONTEXT_0,
-				R.string.context_menu_changeLocation,
-				R.drawable.location_ic);
-
-	//	ContextMenuItem itemContext2 = new ContextMenuItem(
-		//		MENU_CONTEXT_1,
-		//		R.string.context_menu_update_time,
-		//		R.drawable.update_time);
-		
-		ContextMenuItem itemContext2 = new ContextMenuItem(
-				MENU_CONTEXT_1,
-				R.string.temperature_unit,
-				R.drawable.temperature_ic);		
-		
-		 Add context item to list 
-		arrMenuItem.add(itemContext1);
-		//arrMenuItem.add(itemContext2);
-		arrMenuItem.add(itemContext2);
-		return arrMenuItem;
-	}		
-	
-	*//**************************************************************************
-	 * Handle select context menu
-	 * @author DatNQ
-	 *
-	 **************************************************************************//*
-	private class HandleSelectContextMenu implements 
-					android.content.DialogInterface.OnClickListener{
-		
-		*//*********************************************************
-		 * Handle when select context menu item
-		 * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
-		 * @author DatNQ
-		 ********************************************************//*
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
-			
-			switch (which){
-			case MENU_CONTEXT_0:
-				selectSetting();
-				//selectSetting();
-				
-				break;
-
-		//	case MENU_CONTEXT_1:
-				//selectSetting();
-				//selectTempFormat();
-				//selectTimeIntervalUpdating();
-			//	break;
-				
-			case MENU_CONTEXT_1:
-				selectTempFormat();
-				
-				//selectTempFormat();
-				break;
-				
-				default:
-					Log.e(TAG,"Invalid context menu");
-					break;
-			}
-		}
-	}	
-	
-	 *//***************************************************************************
-     * Select temperature format
-     * @date May 12, 2011
-     * @time 11:21:27 PM
-     * @author DatNQ
-     **************************************************************************//*
-    private void selectTempFormat(){
-    	final CharSequence[] items = {"Celsius", "Fahrenheit"};
-
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle(R.string.selectTemperatureUnit);
-    	builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-    	    public void onClick(DialogInterface dialog, int item) {
-    	         Check to update setting 
-    	    	boolean bIsC = true;
-    	    	switch( item ){
-    	    	case SELECT_ITEM_1:
-    	    		bIsC = true;
-    	    		break;
-    	    	case SELECT_ITEM_2:
-    	    		bIsC = false;
-    	    		
-    	    		default:
-    	    			break;
-    	    	}
-    	    	
-    	    	m_Preferneces.setTempFmt(bIsC);
-    	    	m_Alert.dismiss();
-    	    	//notifyUpdateTime();
-    	    	updateWeatherInfo(m_WeatherInfo);
-    	    }
-    	});
-    	m_Alert = builder.create();  
-    	m_Alert.show();
-    }    
-	
-	*//***************************************************************************
-	 * Select setting
-	 * @date May 12, 2011
-	 * @time 11:26:52 PM
-	 * @author DatNQ
-	 **************************************************************************//*
-	private void selectWeatherSetting(){
-		m_Dialog = createContextMenuSetting(this);
-		if (m_Dialog != null){
-			m_Dialog.show();
-		}		
-	}
-   
-  
-   
-   *//***************************************************************************
-    * Initialize data
-    * @return true if success, false if failed
-    * @date May 7, 2011
-    * @time 6:48:46 AM
-    * @author DatNQ
-    **************************************************************************//*
-   private boolean initializeData(){
-   	 Get application context 
-   	Context appContext = this.getApplicationContext();
-   	
-   	 Get preference instance 
-   	m_Preferneces = WeatherPreferences.getInstance(appContext);
-   	if (m_Preferneces == null){
-   		Log.e(TAG, "Get preference instance failed, check please");
-   		return false;
-   	}
-   	
-   	 Get instance of data model 
-   	m_DataModel = WeatherDataModel.getInstance();
-   	if (m_DataModel == null){
-   		Log.e(TAG,"Can not get data model");
-   		return false;
-   	}
-
-   	initializeHandleRequest();
-   	
-   	return true;
-   }    
-   
-   *//***************************************************************************
-    * Draw weather screen, about if need
-    * @date May 7, 2011
-    * @time 5:38:13 PM
-    * @author DatNQ
-    **************************************************************************//*
-     
-   *//***************************************************************************
-    * Change location
-    * @date May 9, 2011
-    * @time 9:57:52 PM
-    * @author DatNQ
-    ***************************************************************************//*
-   private void updateDataOfCurrentLocation(){
-   	requestUpdateWeather();
-   }
-   
-   *//***************************************************************************
-    * Update weather information
-    * @param weatherInfo
-    * @date May 9, 2011
-    * @time 3:38:08 AM
-    * @author DatNQ
-    **************************************************************************//*
-   private void updateWeatherInfo(WeatherInfo weatherInfo){
-   	if (weatherInfo == null){  //we'll go here if no internet connection
-   		Log.e(TAG,"Weather is null");
-   		resetVideos(); //make sure and set this back or nothing else will play
-   		showToast("Could not retrieve weather, no Internet connection");
-   		return;
-   	}
-   	
-   	String strCode = weatherInfo.getCode();
-   	int nCode = getImageByCode(strCode);
-   	//m_WeatherIcon.setImageResource(nCode);   	
-   	
-   	//String strForecastHigh = weatherInfo.getForecastHigh();   	
-   	String strForecastCode = weatherInfo.getForecastCode();   	
-   	//String strForecastHigh2 = weatherInfo.getForecastHigh2();   	
-   	//String strForecastCode2 = weatherInfo.getForecastCode2();   	
-   	//String strForecastText = weatherInfo.getForecastText();   	
-   	//String strForecastText2 = weatherInfo.getForecastText2();   	
-   	String strCity = weatherInfo.getCity();
-   	String strCountry = weatherInfo.getCountry();
-   	//String strDate = weatherInfo.getDate(); 
-   	boolean bIsC = m_Preferneces.getTempFmt();
-   	
-   	weatherCode = Integer.valueOf(strForecastCode.toString());   	
-   	getWeatherVideo();
-   	//showToast("Weather Condition: " + weatherCondition); //rain, cold, or sunny
-   	
-   //	String strFmt;
-   //	String strTemp = weatherInfo.getTemperature(WeatherInfo.TEMPERATURE_FMT_CELSIUS);
-   //	if (bIsC == true){
-   //		strFmt = getString(R.string.str_temperature_fmt); 
-   //	} else {
-   //		strFmt = getString(R.string.str_temperature_fmt_f);
-   //		strTemp = WeatherDataModel.convertC2F(strTemp);
-  // 	}
-   	
-   	//String strTemperature = String.format(strFmt, strTemp);
-   	
-   	//12797534 santa clara woeid
-   	
-   	//m_TextLocation.setText(weatherInfo.getCity());
-   	//m_Temperature.setText(strTemperature);
-   	//m_Date.setText(weatherInfo.getDate());
-   	
-   	//strFmt = getString(R.string.str_humidity_fmt);
-   	//String strHumidity = String.format(strFmt, weatherInfo.getHumidity());
-   //	s_Humimidy = strHumidity;
-   	//m_Humimidy.setText(strHumidity);
-   	//strFmt = getString(R.string.str_visi_fmt);
-   	//String strVisi = String.format(strFmt, weatherInfo.getVisibility());
-   	//m_Visibility.setText(strVisi);
-   	
-   //	 showToast("Code: " + strCode);
-   //	 showToast("Temp: " + strTemp);
-   //	 showToast("Temperature: " + strDate);
-   	 
-   	// showToast("Forecast High: " + strForecastHigh);
-  // 	 showToast("Forecast Code: " + strForecastCode);
-  // 	 showToast("Forecast Text: " + strForecastText);
-   	 
-   //	showToast("Forecast High2: " + strForecastHigh2);
-   //	showToast("Forecast Code2: " + strForecastCode2);
-   //	showToast("Forecast Text2: " + strForecastText2);
-   	
-   	//showToast("City: " + strCity);
-   	//showToast("Country: " + strCountry);  
-   	
-   //	String both = name + "-" + dest;
-    weatherCity = strCity + ", " + strCountry;
-  //  showToast(weatherCity);  
-   	
-   	// String strForecastHigh = weatherInfo.getForecastHigh();
-   }
-   
-   private int getImageByCode(String strCode){
-   	int nImageCode = R.drawable.a0;
-   	
-   	if (strCode == null){
-   		Log.e(TAG,"Code is null");
-   		return nImageCode;
-   	}
-   	
-   	int nCode = Integer.parseInt(strCode);
-   	
-   	int nNumber= YahooWeatherHelper.m_ImageArr.length;
-   	for (int i=0; i < nNumber; i++){
-   		if (nCode == YahooWeatherHelper.m_ImageArr[i][1]){
-   			return YahooWeatherHelper.m_ImageArr[i][0];
-   		}
-   	}
-   	return nImageCode;
-   }
- 
-   *//***************************************************************************
-	 * Handler request
-	 * @date May 10, 2011
-	 * @time 8:50:24 PM
-	 * @author DatNQ
-	 **************************************************************************//*
-   private void initializeHandleRequest(){
-		m_Runnable = new Runnable(){
-
-			@Override
-			public void run() {
-				requestUpdateWeather();
-			}			
-		};
-		
-		
-	     Setting up handler for ProgressBar 
-		m_HandleRequest = new Handler(){
-			@Override
-			public void handleMessage(Message message) {
-				int nRequest = message.what;
-				
-				switch(nRequest){
-				case REG_GET_WEATHER_START:
-			    	String strWOEID = m_Preferneces.getLocation();
-			    	if (strWOEID == null){
-			    		Log.e(TAG,"Can not get WOEID");
-			    		 showToast("Could not retrive weather, please check Internet connection");
-			    		 resetVideos();
-			    		//m_ProgressDialog.dismiss();
-			    		displayNotifyCation(R.string.strFetchFailed);
-			    		return;
-			    	} else {
-				    	 Get weather information 
-				        m_WeatherInfo = m_DataModel.getWeatherData(strWOEID);			
-			    	}
-					
-					Message msgRegSearch = new Message();
-					msgRegSearch.what = REG_GET_WEATHER_FINISH;
-					sendMessage(msgRegSearch);
-					break;
-					
-				case REG_GET_WEATHER_FINISH:
-			    	if (m_WeatherInfo != null){
-			    		updateWeatherInfo(m_WeatherInfo);
-			    		//notifyUpdateTime();
-			    	}
-			    	else {
-			    		 showToast("Could not retrive weather, please check Internet connection");
-			    		 resetVideos();
-			    	}
-					//m_ProgressDialog.dismiss();
-					//m_HandleRequest.postDelayed(m_Runnable, (ONE_MINUTE*m_Preferneces.getTimeUpdate()));
-					break;
-					 
-					 default:
-						 Log.e(TAG,"Can not handle this message");
-						 showToast("Could not retrive weather, please check Internet connection");
-			    		 resetVideos();
-					break;
-				}
-			}
-       };		
-	}  
-   
-      
-   
-   *//***************************************************************************
-    * Select setting
-    * @date May 7, 2011
-    * @time 8:57:55 PM
-    * @author DatNQ
-    **************************************************************************//*
-   	
-	 private void requestUpdateWeather(){
-	    	Message msgFetchData = new Message();
-	    	msgFetchData.what = REG_GET_WEATHER_START;
-	    	m_HandleRequest.sendMessage(msgFetchData);    	
-	 }
-	 
-	 private void displayNotifyCation(int nResID){
-			Toast.makeText(getApplicationContext(), getString(nResID),
-					Toast.LENGTH_LONG).show();    	
-	    }
-		
-	 *//***************************************************************************
-	     * Select setting
-	     * @date May 7, 2011
-	     * @time 8:57:55 PM
-	     * @author DatNQ
-	     **************************************************************************//*
-    private void selectSetting(){
-		//Intent intent = new Intent(magicmirror.this,com.exoplatform.weather.controller.ActivityScreenLocation.class);
-    	
-    	Intent intent = new Intent(getApplicationContext(), com.exoplatform.weather.controller.ActivityScreenLocation.class);
-		intent.putExtra("weatherCityKey", weatherCity);
-		startActivityForResult(intent, REG_CHANGELOCATION);  
-		//startActivity(intent);
-		 
-	//	Intent i= new Intent(getApplicationContext(), NewActivity.class);
-//		i.putExtra("new_variable_name","value");
-	//	startActivity(i);
-    }
-    
-    private void getWeatherVideo() {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				switch (weatherCode)  //sets the video playlists based on the mode
-				{
-					case 0: //tornado							
-						weatherCondition = "rain";				
-						break;
-					case 1: //tropical storm					
-						weatherCondition = "rain";	
-						break;
-					case 2: //hurricane					
-						weatherCondition = "rain";	
-						break;
-					case 3: //severe thunderstorms					
-						weatherCondition = "rain";	
-						break;
-					case 4: //thunderstorms					
-						weatherCondition = "rain";	
-						break;
-					case 5: //mixed rain and snow
-						weatherCondition = "rain";	
-						break;
-					case 6: //mised rain and sleet
-						weatherCondition = "rain";	
-						break;
-					case 7: //mised snow and sleet
-						weatherCondition = "rain";	
-						break;
-					case 8: //freezing drizzle
-						weatherCondition = "rain";	
-						break;
-					case 9: //drizzle
-						weatherCondition = "rain";	
-						break;
-					case 10: //freezing rain
-						weatherCondition = "rain";	
-						break;
-					case 11: //showers
-						weatherCondition = "rain";	
-						break;	
-					case 12: //showers
-						weatherCondition = "rain";	
-						break;	
-					case 13: //snow flurries
-						weatherCondition = "rain";	
-						break;	
-					case 14: //light snow showers
-						weatherCondition = "rain";	
-						break;	
-					case 15: //blowing snow
-						weatherCondition = "rain";	
-						break;
-					case 16: //snow
-						weatherCondition = "rain";	
-						break;
-					case 17: //hail
-						weatherCondition = "rain";	
-						break;
-					case 18: //sleet
-						weatherCondition = "rain";	
-						break;
-					case 19: //dust
-						weatherCondition = "rain";	
-						break;
-					case 20: //foggy
-						weatherCondition = "rain";	
-						break;
-					case 21: //haze
-						weatherCondition = "rain";	
-						break;
-					case 22: //smoky
-						weatherCondition = "rain";	
-						break;
-					case 23: //blustery
-						weatherCondition = "rain";	
-						break;
-					case 24: //windy
-						weatherCondition = "cold";	
-						break;
-					case 25: //cold
-						weatherCondition = "cold";	
-						break;
-					case 26: //cloudy
-						weatherCondition = "cold";	
-						break;
-					case 27: //mostly cloudy (day)
-						weatherCondition = "cold";	
-						break;
-					case 28: //mostly cloudy (night)
-						weatherCondition = "cold";	
-						break;
-					case 29: //partly cloudy (night)
-						weatherCondition = "cold";	
-						break;
-					case 30: //partly cloudy (day)
-						weatherCondition = "cold";	
-						break;
-					case 31: //clear (night)
-						weatherCondition = "sunny";	
-						break;
-					case 32: //sunny
-						weatherCondition = "sunny";	
-						break;
-					case 33: //fair (night)
-						weatherCondition = "sunny";	
-						break;
-					case 34: //fair (day)
-						weatherCondition = "sunny";	
-						break;
-					case 35: //mixed rain and hail
-						weatherCondition = "rain";	
-						break;
-					case 36: //hot
-						weatherCondition = "sunny";	
-						break;
-					case 37: //isoldated thunderstorms
-						weatherCondition = "rain";	
-						break;
-					case 38: //scattered thunderstorms
-						weatherCondition = "rain";	
-						break;
-					case 39: //scattered thunderstorms
-						weatherCondition = "rain";	
-						break;
-					case 40: //scattered showers
-						weatherCondition = "rain";	
-						break;
-					case 41: //heavy snow
-						weatherCondition = "rain";	
-						break;	
-					case 42: //scattered snow showers
-						weatherCondition = "rain";	
-						break;	
-					case 43: //heavy snow
-						weatherCondition = "rain";	
-						break;	
-					case 44: //partly cloudy
-						weatherCondition = "cold";	
-						break;
-					case 45: //thundershowers
-						weatherCondition = "rain";	
-						break;
-					case 46: //snow showers
-						weatherCondition = "rain";	
-						break;
-					case 47: //isoldated thundershowers
-						weatherCondition = "rain";	
-						break;	
-					case 3200: //not available
-						weatherCondition = "cold";	
-						break;						
-					default:
-						showToast("Could not obtain weather, please check Internet connection");
-				}
-			}
-		});
-    }*/
    
    @Override
    public void onDestroy() {
@@ -2154,26 +1590,33 @@ public class magicmirror extends IOIOActivity   {
 	   SharedPreferences prefs = getSharedPreferences("stocklist", MODE_PRIVATE ); 
 	   stocksCSVString = prefs.getString("stocks","");
 	   
-	   new getWeatherCodeTask(
-               "San Francisco",
-               textViewResult).execute();
+	   new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
 	  
-	   //requestUpdateWeather();
+	   
 	  // showToast("stock string: " + stocksCSVString);
   
    }
    
    public class getWeatherCodeTask extends AsyncTask<Void, Void, String> {
 	    
-	    String cityName;
+	    String zip;
+	    String city;
+	    String country;
 	    TextView tvResult;
 
-	    String dummyAppid = "e7fc61dd49597f0cac7871393e8cd971";
-	    String queryWeather = "http://api.openweathermap.org/data/2.5/weather?q=";
-	    String queryDummyKey = "&appid=" + dummyAppid;
+	    String OpenWeatherMapAPIKey = "e7fc61dd49597f0cac7871393e8cd971";
+	    
+	    String queryWeatherValue_;
+	    
+	    String queryWeather_;
+	    String queryWeatherZip = "http://api.openweathermap.org/data/2.5/weather?zip=";  //if the city is blank, we'll do a zip, country code query
+	    String queryWeatherCity = "http://api.openweathermap.org/data/2.5/weather?q=";   // if the city was specified which means international, then we'll do a city, country query
+	    String queryDummyKey = "&appid=" + OpenWeatherMapAPIKey;
 
-	    getWeatherCodeTask(String cityName, TextView tvResult){
-	        this.cityName = cityName;
+	    getWeatherCodeTask(String zip, String city, String country, TextView tvResult){
+	        this.zip = zip;
+	        this.city = city;
+	        this.country = country;
 	        this.tvResult = tvResult;
 	    }
 
@@ -2183,8 +1626,20 @@ public class magicmirror extends IOIOActivity   {
 	        String queryReturn;
 
 	        String query = null;
+	        
+	        if (city != "") {               //if the city is non blank, then it was specified so we'll go international with this and not zip
+	        	queryWeather_ = queryWeatherCity;
+	        	queryWeatherValue_ = city + "," + country;
+	        	showToast(city + "," + country);
+	        }
+	        else {
+	        	queryWeather_ = queryWeatherZip;
+	        	queryWeatherValue_ = zip;
+	        }
+	         
 	        try {
-	            query = queryWeather + URLEncoder.encode(cityName, "UTF-8") + queryDummyKey;
+	            query = queryWeather_ + URLEncoder.encode(queryWeatherValue_, "UTF-8") + queryDummyKey;
+	            showToast(query);
 	            queryReturn = sendQuery(query);
 	            result += ParseJSON(queryReturn);
 	        } catch (UnsupportedEncodingException e) {
@@ -2217,10 +1672,48 @@ public class magicmirror extends IOIOActivity   {
 		@Override
 	    //protected void onPostExecute(String s, String weatherIcon) {
 		protected void onPostExecute(String s) {
-	       tvResult.setText(s);
-	       weatherIconCode = s;
+			
+		   if (debug) {	
+			   tvResult.setText(s);  //show on the screen if debug
+		   }
+	      
+	       showToast(weatherIconCode);
 	       
-	       if (s.equals("01d") || s.equals("01n")) {
+	       if (weatherIconCode.equals("01d") || weatherIconCode.equals("01n")) {
+	    	   weatherCondition = "sunny";	
+	       }
+	       else if (weatherIconCode.equals("02d") || weatherIconCode.equals("02n")) {
+	    	   weatherCondition = "sunny";	
+	       }
+	       else if (weatherIconCode.equals("02d") || weatherIconCode.equals("02n")) {
+	    	   weatherCondition = "sunny";	
+	       }
+	       else if (weatherIconCode.equals("03d") || weatherIconCode.equals("03n")) {
+	    	   weatherCondition = "cold";	
+	       }
+	       else if (weatherIconCode.equals("04d") || weatherIconCode.equals("04n")) {
+	    	   weatherCondition = "cold";	
+	       }
+	       else if (weatherIconCode.equals("09d") || weatherIconCode.equals("09n")) {
+	    	   weatherCondition = "rain";	
+	       }
+	       else if (weatherIconCode.equals("10d") || weatherIconCode.equals("10n")) {
+	    	   weatherCondition = "rain";	
+	       }
+	       else if (weatherIconCode.equals("11d") || weatherIconCode.equals("11n")) {
+	    	   weatherCondition = "rain";	
+	       }
+	       else if (weatherIconCode.equals("13d") || weatherIconCode.equals("13n")) {
+	    	   weatherCondition = "cold";	
+	       }
+	       else if (weatherIconCode.equals("50d") || weatherIconCode.equals("50n")) {
+	    	   weatherCondition = "rain";	
+	       }
+	       else {
+	    	   weatherCondition = "cold";
+	       }
+	       
+	  /*     if (s.equals("01d") || s.equals("01n")) {
 	    	   weatherCondition = "sunny";	
 	       }
 	       else if (s.equals("02d") || s.equals("02n")) {
@@ -2252,7 +1745,7 @@ public class magicmirror extends IOIOActivity   {
 	       }
 	       else {
 	    	   weatherCondition = "sunny";
-	       }
+	       }*/
 	       
 	       //showToast(weatherCondition);
 	     
@@ -2303,14 +1796,14 @@ public class magicmirror extends IOIOActivity   {
 	            if(cod != null){
 	                if(cod.equals("200")){
 
-	                   /* jsonResult += jsonHelperGetString(JsonObject, "name") + "\n";
+	                    jsonResult += jsonHelperGetString(JsonObject, "name") + "\n";
 	                    JSONObject sys = jsonHelperGetJSONObject(JsonObject, "sys");
 	                    if(sys != null){
 	                        jsonResult += jsonHelperGetString(sys, "country") + "\n";
 	                    }
 	                    jsonResult += "\n";
 
-	                    JSONObject coord = jsonHelperGetJSONObject(JsonObject, "coord");
+	                   /* JSONObject coord = jsonHelperGetJSONObject(JsonObject, "coord");
 	                    if(coord != null){
 	                        String lon = jsonHelperGetString(coord, "lon");
 	                        String lat = jsonHelperGetString(coord, "lat");
@@ -2324,7 +1817,7 @@ public class magicmirror extends IOIOActivity   {
 	                          for(int i=0; i<weather.length(); i++){
 	                              JSONObject thisWeather = weather.getJSONObject(i);
 	                              jsonResult += jsonHelperGetString(thisWeather, "icon");
-	                             // weatherIcon_ = jsonHelperGetString(thisWeather, "icon");
+	                              weatherIconCode = jsonHelperGetString(thisWeather, "icon");
 	                             
 	                          }
 	                      }
