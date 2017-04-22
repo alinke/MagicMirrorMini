@@ -75,36 +75,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-/*import com.exoplatform.weather.model.WeatherDataModel;
-import com.exoplatform.weather.model.WeatherInfo;
-import com.exoplatform.weather.model.WeatherPreferences;
-import com.exoplatform.weather.model.YahooWeatherHelper;
-import com.exoplatform.weather.view.ContextMenuAdapter;
-import com.exoplatform.weather.view.ContextMenuItem;*/
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 @SuppressLint("NewApi")
 public class magicmirror extends IOIOActivity   {
 	
-	//api key e7fc61dd49597f0cac7871393e8cd971
-	//http://samples.openweathermap.org/data/2.5/weather?id=5391997&appid=b1b15e88fa797225412429c1c50c122a1
-/*	01d.png  	01n.png  	clear sky
-	02d.png  	02n.png  	few clouds
-	03d.png  	03n.png  	scattered clouds
-	04d.png  	04n.png  	broken clouds
-	09d.png  	09n.png  	shower rain
-	10d.png  	10n.png  	rain
-	11d.png  	11n.png  	thunderstorm
-	13d.png  	13n.png  	snow
-	50d.png  	50n.png  	mist*/
-	
 	private TextView proximity_value_;
 	private TextView pot_value_;
 	private  int proximityPinNumber = 34; //the pin used on IOIO for the alchohol sensor input
-	private  int potPinNumber = 35; //the pin used on IOIO for the alchohol sensor input
-	private  int weatherSwitchPinNumber = 36; //the pin used on IOIO for the alchohol sensor input
-	private  int stockSwitchPinNumber = 37; //the pin used on IOIO for the alchohol sensor input	
-	private  int ledPinNumber = 38; //the pin used on IOIO for the alchohol sensor input
+	private  int potPinNumber = 31; //the pin used on IOIO for the alchohol sensor input
+	private  int weatherSwitchPinNumber = 1; //the pin used on IOIO for the alchohol sensor input
+	private  int stockSwitchPinNumber = 4; //the pin used on IOIO for the alchohol sensor input	
+	private  int ledPinNumber = 35; //the pin used on IOIO for the alchohol sensor input
 
 	private MediaController mc;
 	private VideoView vid;
@@ -157,6 +139,8 @@ public class magicmirror extends IOIOActivity   {
 	private TextView proximity_label_;
 	private TextView pot_label_;
 	private TextView textViewResult;
+	private TextView weatherButtonValue_;
+	private TextView stockButtonValue_;
 	
 	private AssetFileDescriptor ReadyBeepMP3;	
 	private AssetFileDescriptor princessCharacterChangeMP3;	
@@ -242,6 +226,11 @@ public class magicmirror extends IOIOActivity   {
     
     private String weatherIcon_;
     
+    private Boolean weatherSwtich = false;  //we use this for the touch sensor and make true if touch sensor is enabled
+    private Boolean stockSwitch = false;
+    
+    private Boolean weatherPinEnable_;
+    private Boolean stockPinEnable_;
     
 
     @SuppressLint("NewApi")
@@ -253,9 +242,6 @@ public class magicmirror extends IOIOActivity   {
         
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        
-    	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  //get rid of notification bar
-	          WindowManager.LayoutParams.FLAG_FULLSCREEN);
     	
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //force only portrait mode	
 		
@@ -268,6 +254,9 @@ public class magicmirror extends IOIOActivity   {
 		
 		proximity_label_ = (TextView)findViewById(R.id.proximityLabel);
 		pot_label_ = (TextView)findViewById(R.id.potLabel);	
+		
+		weatherButtonValue_ = (TextView)findViewById(R.id.weatherButtonValue);	
+		stockButtonValue_ = (TextView)findViewById(R.id.stockButtonValue);
 		
 		textViewResult = (TextView)findViewById(R.id.result);
        
@@ -321,6 +310,9 @@ public class magicmirror extends IOIOActivity   {
         setPreferences();
         //**********
         
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  //get rid of notification bar
+  	          WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //disable sleep		 
 		
         vid = (VideoView) findViewById(R.id.VideoView);
@@ -361,35 +353,21 @@ public class magicmirror extends IOIOActivity   {
 
         //enableUi(false);
 		 
-		  //******* Weather Stuff ***************
-	        //boolean bResult = initializeData();
-	   
-	        
-	       /* if (bResult == false){
-	        	Log.e(TAG,"Init data failed");
-	        	 Add notify here and quit app 
-	        	finish();
-	        	return;
-	        }	*/
-			        
-	     
-		 
 		 ///********** weather and stock updates functions*********
-		   
-		 /* if (weatherCity_ == "") {
-			  new getWeatherCodeTask(weatherZip_,"",textViewResult).execute();
-		   }
-		  
-		  else {
-			  new getWeatherCodeTask(weatherZip_,weatherCity_ +"," + weatherCountry_, textViewResult).execute();
-		  }
-		 */
+	     
+		 if (weatherPinEnable_ == true) {
+			 new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+		 }
 		 
-	      new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
-		 
-		  
-		  stockUpdate();
+		 stockUpdate();
 		 //**************************************
+		 
+		 //added this for users to do a video test without the board
+		 potRead = 150;
+		 setVideoPath(); //here we set the character and the video paths 
+		 if (stealth == false) {
+				playIdleFirstTimeOnly(); //if stealth is off, then let's play the idle video
+		 }
 		 
     } //end main function
     
@@ -425,6 +403,9 @@ public class magicmirror extends IOIOActivity   {
 				}
 				
 				playingFlag = 0; //let's get the idle video started before we set the playingflag back to 0
+				
+				
+				
   					
   			}
   		});
@@ -979,11 +960,11 @@ public class magicmirror extends IOIOActivity   {
 				proximity_ = ioio_.openAnalogInput(proximityPinNumber);
 				proximity_.setBuffer(50);
 				//led_ = ioio_.openPwmOutput(ledPinNumber, 0);
-				led_ = ioio_.openDigitalOutput(ledPinNumber, true);				
-				weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
-				stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
-				
-				
+				led_ = ioio_.openDigitalOutput(ledPinNumber, false);				
+				//weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
+				weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);
+				stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);
+				//stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
 				//enableUi(true);
 								
 				hideTroubleshootingScreen();
@@ -994,18 +975,25 @@ public class magicmirror extends IOIOActivity   {
 			           e.printStackTrace();
 			      }
 				
-				try {
-					//potRead = pot_.read() * 1000;
-					potRead = pot_.readBuffered() *1000;
-					potReadLast = potRead;
-					Log.v(TAG, "pot read from setup: " + Float.toString(potReadLast));	
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (characterChangePot_ == true) {
+				
+					try {
+						//potRead = pot_.read() * 1000;
+						potRead = pot_.readBuffered() *1000;
+						potReadLast = potRead;
+						Log.v(TAG, "pot read from setup: " + Float.toString(potReadLast));	
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					setPot(Float.toString(potRead));
+				
 				}
 				
-				setPot(Float.toString(potRead));
+				
 				//videoCounter++;
+				
 				setVideoPath(); //here we set the character and the video paths 
 				if (stealth == false) {
 					playIdleFirstTimeOnly(); //if stealth is off, then let's play the idle video
@@ -1022,9 +1010,9 @@ public class magicmirror extends IOIOActivity   {
 		public void loop() throws ConnectionLostException {
 			try {
 				
-				//potRead = pot_.read() * 1000;
 				potRead = pot_.readBuffered() *1000;
-				if (debug == true) { setPot(Float.toString(potRead));}
+				int potReadInt = (int) potRead;
+				if (debug == true && characterChangePot_ == true) { setPot(Integer.toString(potReadInt));}
 				potDifference = Math.abs(potRead - potReadLast); //let's check to see if the character pot was changed
 				//Log.v(TAG, "pot read: " + Float.toString(potRead));	
 				//Log.v(TAG, "pot read last: " + Float.toString(potReadLast));	
@@ -1040,16 +1028,17 @@ public class magicmirror extends IOIOActivity   {
 					//proxRead = proximity_.getVoltageBuffered() / .0064;
 					//proxRead = proximity_.getVoltageBuffered();
 					proxRead = 1000 - (proximity_.readBuffered() *1000);
-					if (debug == true) { setProx(Double.toString(proxRead));}
+					int proxReadInt = (int) proxRead;
+					if (debug == true) { setProx(Integer.toString(proxReadInt));}
 					
-					
-					if (proxRead < proxLowerRange_ && playingFlag == 0) {
+					if ((proxRead > proxLowerRange_) && (proxRead < proxUpperRange_) && playingFlag == 0) {
 						
 						proxCounter++;
 						//led_.setDutyCycle(60);
 						//Log.v(TAG, "Proximity Counter: " + proxCounter);	
 						if (proxCounter > proxMatches) {	 //proxMatches is set in preferences, default is 10					
 							
+							led_.write(true);
 							playingFlag = 1;	//set this so we don't play two videos at the same time
 							proxCounter = 0 ; //reset it for the next time
 							screenOn();	
@@ -1062,17 +1051,25 @@ public class magicmirror extends IOIOActivity   {
 							vid.start(); //play whatever video the path was pointing to
 						}
 					}
+					else {
+						led_.write(false);
+					}
+					
 				}
 				
 				try {
 						weatherSwitchValue = weatherSwitch_.read();
+						
+						if (debug == true && weatherPinEnable_ == true) { setWeatherValue(Boolean.toString(weatherSwitchValue));}  //let's print the weather switch value if in debug mode
+						
 					} catch (InterruptedException e1) {						
 						//e1.printStackTrace();
 					}
-					
-					if (weatherSwitchValue == false && playingFlag == 0) {
+				
+				  
+				if (weatherPinEnable_ == true && weatherSwitchValue == true && playingFlag == 0) {	
 						
-						new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
+						new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult, openWeatherMapAPIKey_).execute();
 							
 							//to do should we move this into async task?
 						  
@@ -1090,13 +1087,13 @@ public class magicmirror extends IOIOActivity   {
 					
 					try {
 						stockSwitchValue = stockSwitch_.read();
-						if (debug == true) { setPot(Boolean.toString(stockSwitchValue));}
+						if (debug == true && stockPinEnable_ == true) { setStockValue(Boolean.toString(stockSwitchValue));}
 					} catch (InterruptedException e1) {
 						
 						//e1.printStackTrace();
 					}
 					
-					if (stockSwitchValue == false && playingFlag == 0) {
+					if (stockPinEnable_ == true && stockSwitchValue == true && playingFlag == 0) {
 						
 						playingFlag = 1;
 						stockUpdate(); //this was causing problems
@@ -1192,6 +1189,24 @@ public class magicmirror extends IOIOActivity   {
 		});
 	}
 	
+	private void setWeatherValue(final String str) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				weatherButtonValue_.setText(str);
+			}
+		});
+	}
+	
+	private void setStockValue(final String str) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				stockButtonValue_.setText(str);
+			}
+		});
+	}
+	
 	private void setPotLabel(final String str) {
 		runOnUiThread(new Runnable() {
 			@Override
@@ -1281,14 +1296,32 @@ public class magicmirror extends IOIOActivity   {
          			findViewById(R.id.potValue).setVisibility(View.GONE);
 					//setProximityLabel("Trial Version: Get Full Version to Clear this Message");
          			findViewById(R.id.proximityLabel).setVisibility(View.GONE);
-         			findViewById(R.id.potLabel).setVisibility(View.GONE);         			
+         			findViewById(R.id.potLabel).setVisibility(View.GONE);
+         			findViewById(R.id.WeatherButtonLabel).setVisibility(View.GONE);
+         			findViewById(R.id.weatherButtonValue).setVisibility(View.GONE);
+         			findViewById(R.id.stockButtonLabel).setVisibility(View.GONE);
+         			findViewById(R.id.stockButtonValue).setVisibility(View.GONE);
+         			findViewById(R.id.WeatherForecastLabel).setVisibility(View.GONE);
+         			findViewById(R.id.result).setVisibility(View.GONE);
+         			findViewById(R.id.instructions).setVisibility(View.GONE);
+         			
+         			
+         			
          		}  
 				 else {
 					//setProximityLabel("Proximity Sensor:");
 					findViewById(R.id.proximityValue).setVisibility(View.VISIBLE);
          			findViewById(R.id.potValue).setVisibility(View.VISIBLE);
          			findViewById(R.id.proximityLabel).setVisibility(View.VISIBLE);
-         			findViewById(R.id.potLabel).setVisibility(View.VISIBLE);     
+         			findViewById(R.id.potLabel).setVisibility(View.VISIBLE);  
+         			findViewById(R.id.result).setVisibility(View.VISIBLE);
+         			findViewById(R.id.WeatherButtonLabel).setVisibility(View.VISIBLE);
+         			findViewById(R.id.weatherButtonValue).setVisibility(View.VISIBLE);
+         			findViewById(R.id.stockButtonLabel).setVisibility(View.VISIBLE);
+         			findViewById(R.id.stockButtonValue).setVisibility(View.VISIBLE);
+         			findViewById(R.id.WeatherForecastLabel).setVisibility(View.VISIBLE);
+         			findViewById(R.id.result).setVisibility(View.VISIBLE);
+         			findViewById(R.id.instructions).setVisibility(View.VISIBLE);
 					 
 				 }
          	 
@@ -1489,8 +1522,8 @@ public class magicmirror extends IOIOActivity   {
     //	        resources.getString(R.string.character_default_value)));   
      
        
-     proximity_sensor =  prefs.getBoolean("pref_proximity_sensor", true); //show the numeric alcohol value or not
-     debug = prefs.getBoolean("pref_debug", false);  //whether or not to show debug text
+     proximity_sensor =  prefs.getBoolean("pref_proximity_sensor", false); //show the numeric alcohol value or not
+     debug = prefs.getBoolean("pref_debug", true);  //whether or not to show debug text
      stealth = prefs.getBoolean("pref_stealth_mode", false);
      custom_videos = prefs.getBoolean("pref_custom_mode", false);
      
@@ -1510,8 +1543,11 @@ public class magicmirror extends IOIOActivity   {
     	        resources.getString(R.string.pref_weatherCountry),
        	        resources.getString(R.string.weatherCountryDefault));
      
-     
      characterChangePot_ = prefs.getBoolean("pref_pot_sensor", false);  
+    		    
+     weatherPinEnable_ = prefs.getBoolean("pref_weatherPinEnable", false);	
+     stockPinEnable_ = prefs.getBoolean("pref_stockPinEnable", false);		
+     
      weatherTouchSensor_ = prefs.getBoolean("pref_weatherPinTouch", false);
      stockTouchSensor_ = prefs.getBoolean("pref_stockPinTouch", false);
      
@@ -1590,7 +1626,9 @@ public class magicmirror extends IOIOActivity   {
 	   SharedPreferences prefs = getSharedPreferences("stocklist", MODE_PRIVATE ); 
 	   stocksCSVString = prefs.getString("stocks","");
 	   
-	   new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult).execute();
+	   if (weatherPinEnable_ == true) {
+		   new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+	   }
 	  
 	   
 	  // showToast("stock string: " + stocksCSVString);
@@ -1603,21 +1641,23 @@ public class magicmirror extends IOIOActivity   {
 	    String city;
 	    String country;
 	    TextView tvResult;
+	    String openWeatherMapAPIKey_;
 
-	    String OpenWeatherMapAPIKey = "e7fc61dd49597f0cac7871393e8cd971";
+	    String OpenWeatherMapAPIKeyDefault = "e7fc61dd49597f0cac7871393e8cd971";
 	    
 	    String queryWeatherValue_;
 	    
 	    String queryWeather_;
 	    String queryWeatherZip = "http://api.openweathermap.org/data/2.5/weather?zip=";  //if the city is blank, we'll do a zip, country code query
 	    String queryWeatherCity = "http://api.openweathermap.org/data/2.5/weather?q=";   // if the city was specified which means international, then we'll do a city, country query
-	    String queryDummyKey = "&appid=" + OpenWeatherMapAPIKey;
+	    String queryDummyKey = "&appid=" + OpenWeatherMapAPIKeyDefault;
 
-	    getWeatherCodeTask(String zip, String city, String country, TextView tvResult){
+	    getWeatherCodeTask(String zip, String city, String country, TextView tvResult, String openWeatherMapAPIKey_){
 	        this.zip = zip;
 	        this.city = city;
 	        this.country = country;
 	        this.tvResult = tvResult;
+	        this.openWeatherMapAPIKey_ = openWeatherMapAPIKey_;
 	    }
 
 	    @Override
@@ -1627,10 +1667,17 @@ public class magicmirror extends IOIOActivity   {
 
 	        String query = null;
 	        
+	        
+	        if (openWeatherMapAPIKey_.equals("")) {  
+	        	showToast("Please register for a free Open Weather Map API Key at http://openweathermap.com/api and then enter this key in the Settings of this app");
+	        }
+	        else {
+	        	queryDummyKey = "&appid=" + openWeatherMapAPIKey_;
+	        }
+	        
 	        if (city != "") {               //if the city is non blank, then it was specified so we'll go international with this and not zip
 	        	queryWeather_ = queryWeatherCity;
 	        	queryWeatherValue_ = city + "," + country;
-	        	showToast(city + "," + country);
 	        }
 	        else {
 	        	queryWeather_ = queryWeatherZip;
@@ -1639,7 +1686,7 @@ public class magicmirror extends IOIOActivity   {
 	         
 	        try {
 	            query = queryWeather_ + URLEncoder.encode(queryWeatherValue_, "UTF-8") + queryDummyKey;
-	            showToast(query);
+	            //showToast(query);
 	            queryReturn = sendQuery(query);
 	            result += ParseJSON(queryReturn);
 	        } catch (UnsupportedEncodingException e) {
@@ -1676,8 +1723,11 @@ public class magicmirror extends IOIOActivity   {
 		   if (debug) {	
 			   tvResult.setText(s);  //show on the screen if debug
 		   }
-	      
-	       showToast(weatherIconCode);
+		   
+		   if (weatherIconCode == null || weatherIconCode.equals("99999")) {  //had to add this because if the user entered the wrong API key, this will crash
+			   weatherIconCode = "99999";
+			   showToast("Weather call failed, please check your API key in Settings in this app");
+		   }
 	       
 	       if (weatherIconCode.equals("01d") || weatherIconCode.equals("01n")) {
 	    	   weatherCondition = "sunny";	
@@ -1801,7 +1851,7 @@ public class magicmirror extends IOIOActivity   {
 	                    if(sys != null){
 	                        jsonResult += jsonHelperGetString(sys, "country") + "\n";
 	                    }
-	                    jsonResult += "\n";
+	                    //jsonResult += "\n";
 
 	                   /* JSONObject coord = jsonHelperGetJSONObject(JsonObject, "coord");
 	                    if(coord != null){
@@ -1816,9 +1866,11 @@ public class magicmirror extends IOIOActivity   {
 	                      if(weather != null){
 	                          for(int i=0; i<weather.length(); i++){
 	                              JSONObject thisWeather = weather.getJSONObject(i);
+	                              jsonResult += jsonHelperGetString(thisWeather, "description");
+	                              jsonResult += "\n";
+	                              jsonResult += "weather code: ";
 	                              jsonResult += jsonHelperGetString(thisWeather, "icon");
 	                              weatherIconCode = jsonHelperGetString(thisWeather, "icon");
-	                             
 	                          }
 	                      }
 	                	
@@ -1833,10 +1885,18 @@ public class magicmirror extends IOIOActivity   {
 	                        }
 	                    }*/
 
-	                }else if(cod.equals("404")){
+	                }
+	                
+	                else if(cod.equals("404")){
 	                    String message = jsonHelperGetString(JsonObject, "message");
 	                    jsonResult += "cod 404: " + message;
 	                }
+	                else if(cod.equals("401")){
+	                    String message = jsonHelperGetString(JsonObject, "message");
+	                    jsonResult += "cod 401: " + message;
+	                    showToast("Invalid Weather API Key");
+	                }
+	                
 	            }else{
 	                jsonResult += "cod == null\n";
 	            }

@@ -3,7 +3,7 @@
     <string name="app_name">Magic Mirror</string>
     <string name="seekbar_label">Move to control the position:</string>
     <string name="proximity_label">Proximity Sensor:</string>
-    <string name="pot_label">Pot Value:</string>    
+    <string name="pot_label">Char Select Potentiometer:</string>    
     
  
 <string name="analog_label">Alcohol Sensor:</string>
@@ -35,7 +35,7 @@
 <string name="proxLowerRangeDefault">200</string>
 
 <string name="pref_proxUpperRange">pref_proxUpperRange</string>   
-<string name="proxUpperRangeDefault">280</string>
+<string name="proxUpperRangeDefault">300</string>
 
 <string name="pref_max_value">pref_max_value</string>       
 <string name="max_value">12</string>  
@@ -70,21 +70,17 @@
 <string name="drinkometer">Drink-O-Meter</string> 
 <string name="notConnectedLabel">Not Connected</string>   
 <string name="FindPLacesButtonString">Nearby Places/Check In</string>  
-<string name="pref_proximity_sensor"></string> 
+<string name="pref_proximity_sensor">pref_proximity_sensor</string> 
 
 <string name="pref_pot_sensor"></string> 
 <string name="pref_pot_sensorDefault">false</string> 
-
- 
-
 
 <string name="menuStealthMode">Stealth Mode</string> 
 <string name="pref_stealth_mode">pref_stealth_mode</string> 
 <string name="pref_stealth_modeDefault">false</string> 
 <string name="menuStealthModeSummary">No idle video is played, videos appear only when triggered by a sensor</string> 
 
-<string name="notConnected_label">Your phone is not yet connected to the IOIO board. If using Bluetooth connectivity, ensure the IOIO with Bluetooth dongle is paired to your phone using the code: 4545. Bluetooth is only supported on Android 2.2 and above. Android 2.3.3 is required for persistent Bluetooth connections (not having to re-enter the pairing code each time you use the app). \n\n
-			If your phone is connected to the IOIO board with a USB cable, you must also turn on USB Debugging from Settings --> Applications --> Development --> USB debugging.\n\n</string>
+<string name="notConnected_label">You are not Bluetooth paired to the PIXEL board. Pair using pin: 0000.\n\n</string>
  
 <string name="screenBrightness">Screen Brightness</string> 
 <string name="pref_screenBrightness">pref_screenBrightness</string> 
@@ -134,13 +130,14 @@
 
 <string name="userAcceptanceString">"The Magic Mirror is NOT a professional Breathalyzer and is for novelty use only. \n\nDo not use this app to determine whether you should drive.\n\nPlease Drink Responsibly"</string>
 <string name="userAcceptanceStringTitle">Novelty Use Only</string>
-<string name="setupInstructionsString">1. Pair your phone to the bluetooth enabled alcohol detector which will show up as IOIO using code 4545 if your phone is Android 2.3.3 and above. \n\n
-			2. If your phone is below 2.3.3, connect using a USB cable and also turn on USB Debugging from Settings --> Applications --> Development --> USB debugging.\n\n 
-			3. If using custom videos, enable Custom Videos from Settings and copy your custom video files to the \\Videos path on your micro SD card. Custom videos should be in the .3GP format in 240 (width) x 352 (height) resolution. \n\n
-			4. Follow this naming convention for the custom videos: idle_custom.3gp, proximity1_custom.3gp, proximity2_custom.3gp, weather_good_custom.3gp, weather_ok_custom.3gp, weather_rain_custom.3gp, stock_up_custom.3gp, stock_no_change_custom.3gp, stock_down_custom.3gp \n\n
-			5. Enter custom mode by turning the character change potentiometer until you\&apos;re in custom mode\n\n More info at http://droidalyzer.com/minimagicmirror.html</string>
+<string name="setupInstructionsString">1. Pair your phone to the PIXEL board using code: 0000 \n\n
+    		2. See http://diymagicmirror.com for instructions on which Grove port to plug in each sensor type: proximity, char select potentiometer, weather button, and stock button.\n\n
+    		3. If using the weather feature, you will also need to register for a free Open Weather Map API Key at http://openweathermap.com/api and enter this key in the Settings of this app.\n\n
+			4. If using custom videos, enable Custom Videos from Settings and copy your custom video files to the \\Videos path on your micro SD card. Custom videos should be in the .3GP format in 240 (width) x 352 (height) resolution. \n\n
+			5. Follow this naming convention for the custom videos: idle_custom.3gp, proximity1_custom.3gp, proximity2_custom.3gp, weather_good_custom.3gp, weather_ok_custom.3gp, weather_rain_custom.3gp, stock_up_custom.3gp, stock_no_change_custom.3gp, stock_down_custom.3gp \n\n
+			6. Enter custom mode by turning the character select potentiometer until you\&apos;re in custom mode\n\n More info at http://diymagicmirror.com</string>
 <string name="setupInstructionsStringTitle">Setup Instructions</string>   
-<string name="notFoundString">"If using Bluetooth, make sure you've Bluetooth paired to the device using code 4545.\n\nIf connecting with a USB cable, ensure USB Debugging is turned on from Settings --> Applications --> Development --> USB debugging"</string>
+<string name="notFoundString">"If using Bluetooth, make sure you've Bluetooth paired to the device using code 0000.\n\nIf connecting with a USB cable, ensure USB Debugging is turned on from Settings --> Applications --> Development --> USB debugging"</string>
 <string name="notFoundStringTitle">Alcohol Detector Not Found</string>   
 <string name="instructionsString">After tapping the beer icon to begin, breathe into the alcohol sensor as if you were fogging up a window or say "haaaaaaaaah". Do not touch the sensor with your lips.\n\nTap the character icon to select different voices as well as other settings.\n\nWait at least 20 minutes after drinking, eating , or smoking before testing.\n\nThis app is for entertainment purposes only. Please Drink Responsibly.</string>
 <string name="instructionsStringTitle">Instructions</string>   
@@ -196,10 +193,8 @@
 <string name="enabledSensorsTitle">Enabled Sensors</string>     
 <string name="menuDisplayData">Proximity Sensor</string>   
 <string name="menuDisplayDataSummary">Turn on the proximity sensor</string> 
-<string name="characterChangePot">Character Change Potentiometer</string>   
-<string name="characterChangePotSummary">Turn on character change potentiometer</string> 
-
-
+<string name="characterChangePot">Character Select Potentiometer</string>   
+<string name="characterChangePotSummary">Turn on character select potentiometer</string> 
 
   
 <string name="menuCalibrationTitle">Proximity Sensor Settings</string>     
@@ -210,7 +205,7 @@
 <string name="menuHighRange">Proximity Upper Range</string>   
 <string name="menuHighRangeSummary">The upper range of the proximity sensor.</string>  
 <string name="menuDebug">Verbose</string>   
-<string name="menuDebugSummary">Displays proximity sensor and potentiometer data</string>  
+<string name="menuDebugSummary">Displays proximity sensor, char select potentiometer, weather button, stock button, and weather data. Turn off Verbose when you have everything configured and working.</string>  
 <string name="menuTexttoSpeechTitle">Text to Speech Settings</string>   
 <string name="menuSocialMediaTitle">Social Media Settings</string>   
 <string name="menuSocialMediaTitleSummary">Tweeting or Facebook posting of alcohol detection results</string>    
@@ -323,13 +318,13 @@
 <string name="pref_hideTaximagicTitle">Hide Taxi Magic</string>
 <string name="pref_hideTaximagicSummary">Non US users may want to hide the Taxi Magic button</string>
 <string name="menu_about_title">About</string> 
-<string name="menu_about_summary">More info at http://droidalyzer.com/magicmirrormini.html\n\nDesigned by Open Gadgets LLC</string>
+<string name="menu_about_summary">More info at http://diymagicmirror.com\n\nDesigned by Open Gadgets LLC</string>
 <string name="pref_facebook_post_default">true</string>
 <string name="pref_twitter_post_default">false</string>
 <string name="pref_disablesleep_default">true</string>
 <string name="pref_simulation_default">false</string>   
 <string name="pref_debugDefault">false</string>    
-<string name="pref_proximity_sensorDefault">true</string> 
+<string name="pref_proximity_sensorDefault">false</string> 
 
 <string name="pref_show_user_acceptance_default">true</string>   
 <string name="versionString">Version</string>
@@ -423,26 +418,26 @@
     <string name="proximityPinNumber">Proximity Sensor Pin</string>
     <string name="pref_prox_pinNumber">pref_prox_pinNumber</string>
     <string name="pref_prox_pinNumber_default_value">34</string>
-    <string name="proximityPinNumberSummary">Pin number of the proximity sensor. Use the Maxbotiz EZ series of proximity sensors or the Sharp IR proximity sensor.</string>
+    <string name="proximityPinNumberSummary">Pin number of the proximity sensor. Use a Sharp IR proximity sensor (cheaper) or a sonar based Maxbotix EZ series proximity sensor.</string>
      
     <string name="potPinNumber">Potentiometer Pin</string>
     <string name="pref_pot_pinNumber">pref_pot_pinNumber</string>
-    <string name="pref_pot_pinNumber_default_value">35</string>
+    <string name="pref_pot_pinNumber_default_value">31</string>
     <string name="potPinNumberSummary">Pin number of the potentiometer for changing the Magic Mirror character.</string>
     
     <string name="weatherPinNumber">Weather Pin</string>
     <string name="pref_weather_pinNumber">pref_weather_pinNumber</string>
-    <string name="pref_weather_pinNumber_default_value">36</string>
+    <string name="pref_weather_pinNumber_default_value">1</string>
     <string name="weatherPinNumberSummary">Pin number of the weather switch for the weather forecast</string>
     
     <string name="stockPinNumber">Stock Pin</string>
     <string name="pref_stock_pinNumber">pref_stock_pinNumber</string>
-    <string name="pref_stock_pinNumber_default_value">37</string>
+    <string name="pref_stock_pinNumber_default_value">4</string>
     <string name="stockPinNumberSummary">Pin number of the stock switch for the stock results</string>
     
     <string name="ledPinNumber">LED Pin</string>
     <string name="pref_led_pinNumber">pref_led_pinNumber</string>
-    <string name="pref_led_pinNumber_default_value">38</string>
+    <string name="pref_led_pinNumber_default_value">35</string>
     <string name="ledPinNumberSummary">Pin number of the LED indicator</string>
     
     <string name="menuCustomMode">Custom Videos</string>
@@ -459,7 +454,16 @@
 	<string name="pref_stockPinTouch">pref_weatherPinTouch</string> 
 	<string name="pref_stockPinTouchDefault">false</string> 
 	<string name="stockPinTouchSummary">Turn on if the stock switch is a touch sensor, leave off if it is a normal momentary push button</string> 
-	    
+	
+	<string name="weatherPinEnable">Enable Weather Button</string> 
+	<string name="pref_weatherPinEnable">pref_weatherPinEnable</string> 
+	<string name="weatherPinEnableDefault">false</string> 
+	<string name="weatherPinEnableSummary">Enable the weather button, this can be a momentary swtich or Seeed Grove touch sensor</string> 
+	
+	<string name="stockPinEnable">Enable Stock Button</string> 
+	<string name="pref_stockPinEnable">pref_stockPinEnable</string> 
+	<string name="stockPinEnableDefault">false</string> 
+	<string name="stockPinEnableSummary">Enable the stock button, this can be a momentary swtich or Seeed Grove touch sensor</string> 
 	
 	 <!-- For weather settings -->  
     <string name="weatherSettingsTitle">Weather Settings</string>
@@ -478,7 +482,7 @@
     
     <string name="weatherCity">Your City</string>
     <string name="pref_weatherCity">pref_weatherCity</string>
-    <string name="weatherCityDefault"></string>
+    <string name="weatherCityDefault">San Francisco</string>
     <string name="weatherCityDefaultSummary">Only enter your city if it is outside of the United States. Enter your zip code above and leave this blank if you are in the US.</string>
      
     <string name="OpenWeatherMapAPIKey">Your Weather API Key</string>
@@ -486,6 +490,16 @@
     <string name="openWeatherMapAPIDefault"></string>
     <string name="openWeatherMapAPISummary">You will need to register for a free Open Weather Map API Key at http://openweathermap.com/api and then enter this key here</string>
     
+    <string name="weatherButtonLabel">Weather Button:</string>
+    <string name="stockButtonLabel">Stock Button:</string>
+    <string name="weatherForecastLabel">Weather Forecast:</string>
+    
+    <string name="Instructions">Enter Settings in this app to turn on your desired sensors including calibrating the proximity sensor. Turn off Verbose from Settings once you have everything working to hide this and the above text. If using the weather feature, you will also need to register for a free Open Weather Map API Key at http://openweathermap.com/api and enter this key in Settings. If your Android device does not have a menu button, long press the recent apps button to enter Settings in this app.</string>
+    
+    
    
+    
+    
+    
     
 </resources>
