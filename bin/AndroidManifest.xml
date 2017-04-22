@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.diymagicmirror.paidandroid" android:versionCode="7"
-	android:versionName="2.1">
+	package="com.diymagicmirror.paidandroid" android:versionCode="9"
+	android:versionName="3.1">
 
 	
 
-	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="11"/>
+	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>   <!-- If target changes to 11 or higher, the menu three dots will not show on android tablets to get into settings -->      
        
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,13 +13,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
-	    
-	    
-	     <!-- Broadcast Receiver that will process AppWidget updates -->        
-	    
-	    
-	    
-	    
 	    
 		<uses-library android:name="com.android.future.usb.accessory"
 			android:required="false" />
@@ -38,19 +31,15 @@
 				android:resource="@xml/accessory_filter" />
 		</activity>
 		
-		<!-- Weather information screen -->
-        
-               
-   
-     
+	<!-- Old Weather information screen 
      
 	<activity android:name="com.exoplatform.weather.controller.ActivityScreenLocation" android:launchMode="singleTask"></activity>
 	<activity android:name="com.exoplatform.weather.controller.ActivityStockList" android:launchMode="singleTask"></activity>	
+	
+	-->
 		
 	<activity android:name=".preferences"></activity>
 	
 	</application>
-	
-	
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.diymagicmirror.paidandroid;
 
-//Paid Version
 
 import ioio.lib.api.AnalogInput;
 import ioio.lib.api.DigitalInput;
@@ -37,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -56,6 +56,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -83,10 +84,10 @@ public class magicmirror extends IOIOActivity   {
 	private TextView proximity_value_;
 	private TextView pot_value_;
 	private  int proximityPinNumber = 34; //the pin used on IOIO for the alchohol sensor input
-	private  int potPinNumber = 31; //the pin used on IOIO for the alchohol sensor input
-	private  int weatherSwitchPinNumber = 1; //the pin used on IOIO for the alchohol sensor input
-	private  int stockSwitchPinNumber = 4; //the pin used on IOIO for the alchohol sensor input	
-	private  int ledPinNumber = 35; //the pin used on IOIO for the alchohol sensor input
+	private  int potPinNumber = 35; //the pin used on IOIO for the alchohol sensor input
+	private  int weatherSwitchPinNumber = 4; //the pin used on IOIO for the alchohol sensor input
+	private  int stockSwitchPinNumber = 31; //the pin used on IOIO for the alchohol sensor input	
+	private  int ledPinNumber = 1; //the pin used on IOIO for the alchohol sensor input
 
 	private MediaController mc;
 	private VideoView vid;
@@ -244,6 +245,8 @@ public class magicmirror extends IOIOActivity   {
         StrictMode.setThreadPolicy(policy);
     	
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); //force only portrait mode	
+		
+		//getOverflowMenu();  //not needed right now but potentially in future http://stackoverflow.com/questions/19746314/menu-button-doesnt-show-on-nexus-7
 		
 		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);	
 		SharedPreferences prefs = getSharedPreferences("stocklist", MODE_PRIVATE ); //get the stocks preference, this came from the special stocks data entry screen
@@ -403,10 +406,6 @@ public class magicmirror extends IOIOActivity   {
 				}
 				
 				playingFlag = 0; //let's get the idle video started before we set the playingflag back to 0
-				
-				
-				
-  					
   			}
   		});
       }
@@ -1675,7 +1674,8 @@ public class magicmirror extends IOIOActivity   {
 	        	queryDummyKey = "&appid=" + openWeatherMapAPIKey_;
 	        }
 	        
-	        if (city != "") {               //if the city is non blank, then it was specified so we'll go international with this and not zip
+	                   
+	        if (!city.equals("")) {        //if the city is non blank, then it was specified so we'll go international with this and not zip
 	        	queryWeather_ = queryWeatherCity;
 	        	queryWeatherValue_ = city + "," + country;
 	        }
@@ -1942,6 +1942,20 @@ public class magicmirror extends IOIOActivity   {
 	        }
 
 	        return a;
+	    }
+	}
+   
+   private void getOverflowMenu() {  //not used
+
+	     try {
+	        ViewConfiguration config = ViewConfiguration.get(this);
+	        Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+	        if(menuKeyField != null) {
+	            menuKeyField.setAccessible(true);
+	            menuKeyField.setBoolean(config, false);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
 	}
    

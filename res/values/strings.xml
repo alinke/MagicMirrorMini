@@ -63,7 +63,7 @@
 <string name="facebookPostButtonString">Facebook Post</string> 
 <string name="tweetButtonString">Tweet</string> 
 <string name="cancelButtonString">Cancel</string> 
-<string name="pref_debug">true</string> 
+<string name="pref_debug">pref_debug</string> 
 <string name="pref_taxi_sms">pref_taxi_sms</string> 
 <string name="taxi_sms_default">862442</string>     
 <string name="pref_shake_start">pref_shake_start</string> 
@@ -323,7 +323,7 @@
 <string name="pref_twitter_post_default">false</string>
 <string name="pref_disablesleep_default">true</string>
 <string name="pref_simulation_default">false</string>   
-<string name="pref_debugDefault">false</string>    
+<string name="pref_debugDefault">true</string>    
 <string name="pref_proximity_sensorDefault">false</string> 
 
 <string name="pref_show_user_acceptance_default">true</string>   
@@ -392,7 +392,7 @@
     <string name="selectTemperatureUnit">Set your prefer unit</string>
     <string name="selectTimeUpdate">Set auto-update time</string>
     
-    <string name="stock_menu_setting">Set Stocks</string>
+    <string name="stock_menu_setting">Enter Stock Tickers</string>
     
     <string name="weather_menu_setting">Set Weather Location</string>
     <string name="bluetooth_pair">Blueooth Pairing</string>
@@ -422,22 +422,22 @@
      
     <string name="potPinNumber">Potentiometer Pin</string>
     <string name="pref_pot_pinNumber">pref_pot_pinNumber</string>
-    <string name="pref_pot_pinNumber_default_value">31</string>
+    <string name="pref_pot_pinNumber_default_value">35</string>
     <string name="potPinNumberSummary">Pin number of the potentiometer for changing the Magic Mirror character.</string>
     
     <string name="weatherPinNumber">Weather Pin</string>
     <string name="pref_weather_pinNumber">pref_weather_pinNumber</string>
-    <string name="pref_weather_pinNumber_default_value">1</string>
+    <string name="pref_weather_pinNumber_default_value">4</string>
     <string name="weatherPinNumberSummary">Pin number of the weather switch for the weather forecast</string>
     
     <string name="stockPinNumber">Stock Pin</string>
     <string name="pref_stock_pinNumber">pref_stock_pinNumber</string>
-    <string name="pref_stock_pinNumber_default_value">4</string>
+    <string name="pref_stock_pinNumber_default_value">31</string>
     <string name="stockPinNumberSummary">Pin number of the stock switch for the stock results</string>
     
     <string name="ledPinNumber">LED Pin</string>
     <string name="pref_led_pinNumber">pref_led_pinNumber</string>
-    <string name="pref_led_pinNumber_default_value">35</string>
+    <string name="pref_led_pinNumber_default_value">1</string>
     <string name="ledPinNumberSummary">Pin number of the LED indicator</string>
     
     <string name="menuCustomMode">Custom Videos</string>
@@ -482,7 +482,7 @@
     
     <string name="weatherCity">Your City</string>
     <string name="pref_weatherCity">pref_weatherCity</string>
-    <string name="weatherCityDefault">San Francisco</string>
+    <string name="weatherCityDefault"></string>
     <string name="weatherCityDefaultSummary">Only enter your city if it is outside of the United States. Enter your zip code above and leave this blank if you are in the US.</string>
      
     <string name="OpenWeatherMapAPIKey">Your Weather API Key</string>
