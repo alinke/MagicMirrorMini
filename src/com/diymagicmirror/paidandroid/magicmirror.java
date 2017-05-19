@@ -220,18 +220,20 @@ public class magicmirror extends IOIOActivity   {
     private String weatherCountry_ = "US";
     private String openWeatherMapAPIKey_ = "";
     private Boolean characterChangePot_ = false;
-    private Boolean weatherTouchSensor_ = false;
-    private Boolean stockTouchSensor_ = false;
+    private Boolean weatherSwtichNoPullUp_ = false;
+    private Boolean stockSwitchNoPullUp_ = false;
     private int proxLowerRange_;
     private int proxUpperRange_;
     
     private String weatherIcon_;
     
-    private Boolean weatherSwtich = false;  //we use this for the touch sensor and make true if touch sensor is enabled
-    private Boolean stockSwitch = false;
+    private Boolean weatherSwitchTrigger = false;  //we use this for the touch sensor and make true if touch sensor is enabled
+    private Boolean stockSwitchTrigger = false;
     
     private Boolean weatherPinEnable_;
     private Boolean stockPinEnable_;
+    private Boolean maxBotixSensor_;
+    private Boolean demoMode_;
     
 
     @SuppressLint("NewApi")
@@ -358,11 +360,15 @@ public class magicmirror extends IOIOActivity   {
 		 
 		 ///********** weather and stock updates functions*********
 	     
-		 if (weatherPinEnable_ == true) {
-			 new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+		 if (demoMode_ != true) {
+		 
+			 if (weatherPinEnable_ == true) {
+				 new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+			 }
+			 
+			 stockUpdate();
 		 }
 		 
-		 stockUpdate();
 		 //**************************************
 		 
 		 //added this for users to do a video test without the board
@@ -505,7 +511,7 @@ public class magicmirror extends IOIOActivity   {
 				
 				if (custom_videos == true) {
 				
-					if (potRead < 200 && character != 0) {
+					if (potRead < 160 && character != 0) {
 						 try {
 								playprincessCharacterChangeMP3();
 								characterChangedFlag = 1;
@@ -516,7 +522,7 @@ public class magicmirror extends IOIOActivity   {
 							}
 			    	 }
 			    	 
-			    	 if (potRead > 200 && potRead < 400 && character != 1) {
+			    	 if (potRead > 160 && potRead < 320 && character != 1) {
 			    		try {
 							playpirateCharacterChangeMP3();
 							characterChangedFlag = 1;
@@ -527,7 +533,7 @@ public class magicmirror extends IOIOActivity   {
 						}
 			    	 }
 			    	 
-			    	 if (potRead > 400 && potRead < 600 && character != 2) {
+			    	 if (potRead > 320 && potRead < 480 && character != 2) {
 			    		 try {
 								playhalloweenCharacterChangeMP3();
 								characterChangedFlag = 1;
@@ -538,7 +544,7 @@ public class magicmirror extends IOIOActivity   {
 							}
 			    	 }
 			    	 
-			    	 if (potRead > 600 && potRead < 800 && character != 3) {
+			    	 if (potRead > 480 && potRead < 640 && character != 3) {
 			    		 try {
 								playinsultCharacterChangeMP3();
 								characterChangedFlag = 1;
@@ -549,7 +555,7 @@ public class magicmirror extends IOIOActivity   {
 							}
 			    	 }
 			    	 
-			    	 if (potRead > 800 && character != 4) {
+			    	 if (potRead > 640 && character != 4) {
 			    		 try {
 								playcustomCharacterChangeMP3();
 								characterChangedFlag = 1;
@@ -628,7 +634,7 @@ public class magicmirror extends IOIOActivity   {
 			public void run() {
 				 
 				if (custom_videos == true) {
-					if (potRead < 200) {
+					if (potRead < 160) {
 			    		character = 0;
 			    		vidIdlePath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.idle_princess);
 			    		vidNoInternetPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.no_internet_princess);
@@ -652,7 +658,7 @@ public class magicmirror extends IOIOActivity   {
 						 }
 			    	 }
 			    	 
-			    	 if (potRead > 200 && potRead < 400) {
+			    	 if (potRead > 160 && potRead < 320) {
 			    		character = 1;
 			    		vidIdlePath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.idle_pirate);
 			    		vidNoInternetPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.no_internet_pirate);
@@ -676,7 +682,7 @@ public class magicmirror extends IOIOActivity   {
 						 }
 			    	 }
 			    	 
-			    	 if (potRead > 400 && potRead < 600) {
+			    	 if (potRead > 320 && potRead < 480) {
 			    		character = 2;
 			    		vidIdlePath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.idle_halloween);
 			    		vidNoInternetPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.no_internet_halloween);
@@ -702,7 +708,7 @@ public class magicmirror extends IOIOActivity   {
 						 }
 			    	 }
 			    	 
-			    	 if (potRead > 600 && potRead < 800) {
+			    	 if (potRead > 480 && potRead < 640) {
 			    		character = 3;
 			    		vidIdlePath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.idle_insult);
 			    		vidNoInternetPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.no_internet_insult);
@@ -727,7 +733,7 @@ public class magicmirror extends IOIOActivity   {
 						 }
 			    	 }
 			    	 
-			     	 if (potRead > 800) {  //custom video files read from sd card
+			     	 if (potRead > 640) {  //custom video files read from sd card
 			    		 character = 4;
 			    		 
 			    		 
@@ -928,6 +934,8 @@ public class magicmirror extends IOIOActivity   {
 					 vid.setVideoURI(vidStockPathOK);
 				}
 				
+				
+				
 				//showToast ("bad threshold " + stock_badThreshold);
 				//showToast ("good threshold " + stock_goodThreshold);
 				//showToast ("stock price change " + stockPriceChange);
@@ -959,11 +967,29 @@ public class magicmirror extends IOIOActivity   {
 				proximity_ = ioio_.openAnalogInput(proximityPinNumber);
 				proximity_.setBuffer(50);
 				//led_ = ioio_.openPwmOutput(ledPinNumber, 0);
-				led_ = ioio_.openDigitalOutput(ledPinNumber, false);				
-				//weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
-				weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);
-				stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);
-				//stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
+				led_ = ioio_.openDigitalOutput(ledPinNumber, false);	
+				
+				if  (weatherSwtichNoPullUp_ == true) {
+					weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
+					weatherSwitchTrigger = false;  //we use this for the touch sensor and make true if touch sensor is enabled
+				   
+				    
+				}
+				else {
+					weatherSwitch_ = ioio_.openDigitalInput(weatherSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);
+					weatherSwitchTrigger = true;  
+				}
+				
+				if  (stockSwitchNoPullUp_ == true) {
+					stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_UP);
+					stockSwitchTrigger = false;
+				}
+				else {
+					stockSwitch_ = ioio_.openDigitalInput(stockSwitchPinNumber, DigitalInput.Spec.Mode.PULL_DOWN);  //this is for grove switches
+					stockSwitchTrigger = true;
+				}
+				
+				
 				//enableUi(true);
 								
 				hideTroubleshootingScreen();
@@ -1026,8 +1052,17 @@ public class magicmirror extends IOIOActivity   {
 					//proxRead = proximity_.getVoltage() / .0064;  //at 3.3V, 1 inch = 6.4 mV from the MaxBotix EZ-1 Sensor
 					//proxRead = proximity_.getVoltageBuffered() / .0064;
 					//proxRead = proximity_.getVoltageBuffered();
-					proxRead = 1000 - (proximity_.readBuffered() *1000);
+					
+					if (maxBotixSensor_ == true) {
+						//proxRead = (proximity_.readBuffered() *1000);
+						proxRead = proximity_.getVoltageBuffered() / .0064;
+					} 
+					else {                                                        //using IR sensor
+						proxRead = 1000 - (proximity_.readBuffered() *1000);
+					}
+					
 					int proxReadInt = (int) proxRead;
+					
 					if (debug == true) { setProx(Integer.toString(proxReadInt));}
 					
 					if ((proxRead > proxLowerRange_) && (proxRead < proxUpperRange_) && playingFlag == 0) {
@@ -1059,20 +1094,39 @@ public class magicmirror extends IOIOActivity   {
 				try {
 						weatherSwitchValue = weatherSwitch_.read();
 						
-						if (debug == true && weatherPinEnable_ == true) { setWeatherValue(Boolean.toString(weatherSwitchValue));}  //let's print the weather switch value if in debug mode
+					if (debug == true && weatherPinEnable_ == true) { setWeatherValue(Boolean.toString(weatherSwitchValue));}  //let's print the weather switch value if in debug mode
 						
 					} catch (InterruptedException e1) {						
 						//e1.printStackTrace();
 					}
 				
 				  
-				if (weatherPinEnable_ == true && weatherSwitchValue == true && playingFlag == 0) {	
+				if (weatherPinEnable_ == true && weatherSwitchValue == weatherSwitchTrigger && playingFlag == 0) {	
+					 
+					playingFlag = 1;	
 						
+					if (demoMode_ == true) {
+						
+						screenOn();
+						
+						if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
+							vid.pause();  //we also need to reset the video path
+						}
+						
+						setVideoPath();
+						//vid.setVideoURI(vidWeatherPathGood);	
+						weatherCondition = "sunny";
+						setWeatherPath();
+						vid.start();
+					}
+					
+					else {
+					
 						new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult, openWeatherMapAPIKey_).execute();
 							
 							//to do should we move this into async task?
 						  
-						    playingFlag = 1;
+						   
 							screenOn();
 							
 							if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
@@ -1083,6 +1137,7 @@ public class magicmirror extends IOIOActivity   {
 							setWeatherPath(); //set this to one of three based on the yahoo api weather result									
 							vid.start();
 					}
+				}
 					
 					try {
 						stockSwitchValue = stockSwitch_.read();
@@ -1092,28 +1147,43 @@ public class magicmirror extends IOIOActivity   {
 						//e1.printStackTrace();
 					}
 					
-					if (stockPinEnable_ == true && stockSwitchValue == true && playingFlag == 0) {
+					if (stockPinEnable_ == true && stockSwitchValue == stockSwitchTrigger && playingFlag == 0) {
 						
 						playingFlag = 1;
-						stockUpdate(); //this was causing problems
-									
-						if (stocksCSVString != "") { 
-								
-								//playingFlag = 1;
-								screenOn();
-								if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
-									vid.pause();  //we also need to reset the video path
-								}
-								setVideoPath();									
-								setStockPath();								
-								vid.start();
-								
-								
+						
+						if (demoMode_ == true) {
+							
+							screenOn();
+							if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
+								vid.pause();  //we also need to reset the video path
+							}	
+							setVideoPath();
+							stockPriceChange = 9999999;   //making this a high number so it will always return the good stock video
+							setStockPath();		
+							vid.start();
 						}
+						
 						else {
-							showToast("You have not entered any stocks yet"); 							
-							resetVideos();
-							//playingFlag = 0;
+						
+							stockUpdate(); //TO DO need to fix if user entered a bad ticker
+										
+							if (stocksCSVString != "") { 
+									
+									//playingFlag = 1;
+									screenOn();
+									if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
+										vid.pause();  //we also need to reset the video path
+									}
+									setVideoPath();									
+									setStockPath();								
+									vid.start();
+							}
+							else {
+								showToast("You have not entered any stocks yet"); 							
+								resetVideos();
+								//playingFlag = 0;
+							}
+						
 						}
 						
 					}
@@ -1520,9 +1590,12 @@ public class magicmirror extends IOIOActivity   {
     //	        resources.getString(R.string.selected_character),
     //	        resources.getString(R.string.character_default_value)));   
      
-       
-     proximity_sensor =  prefs.getBoolean("pref_proximity_sensor", false); //show the numeric alcohol value or not
      debug = prefs.getBoolean("pref_debug", true);  //whether or not to show debug text
+ 
+     proximity_sensor =  prefs.getBoolean("pref_proximity_sensor", false); //show the numeric alcohol value or not
+     maxBotixSensor_ = prefs.getBoolean("pref_maxBotixSensor", false);
+     demoMode_ = prefs.getBoolean("pref_demoMode", false);
+    	
      stealth = prefs.getBoolean("pref_stealth_mode", false);
      custom_videos = prefs.getBoolean("pref_custom_mode", false);
      
@@ -1547,8 +1620,8 @@ public class magicmirror extends IOIOActivity   {
      weatherPinEnable_ = prefs.getBoolean("pref_weatherPinEnable", false);	
      stockPinEnable_ = prefs.getBoolean("pref_stockPinEnable", false);		
      
-     weatherTouchSensor_ = prefs.getBoolean("pref_weatherPinTouch", false);
-     stockTouchSensor_ = prefs.getBoolean("pref_stockPinTouch", false);
+     weatherSwtichNoPullUp_ = prefs.getBoolean("pref_weatherPinTouch", false);
+     stockSwitchNoPullUp_ = prefs.getBoolean("pref_stockPinTouch", false);
      
      proxLowerRange_ = Integer.valueOf(prefs.getString(   
  	        resources.getString(R.string.pref_proxLowerRange),
@@ -1625,8 +1698,12 @@ public class magicmirror extends IOIOActivity   {
 	   SharedPreferences prefs = getSharedPreferences("stocklist", MODE_PRIVATE ); 
 	   stocksCSVString = prefs.getString("stocks","");
 	   
-	   if (weatherPinEnable_ == true) {
-		   new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+	   if (demoMode_ != true) {
+	   
+		   if (weatherPinEnable_ == true) {
+			   new getWeatherCodeTask(weatherZip_,weatherCity_,weatherCountry_, textViewResult,openWeatherMapAPIKey_).execute();
+		   }
+		   
 	   }
 	  
 	   

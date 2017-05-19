@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.diymagicmirror.paidandroid" android:versionCode="9"
-	android:versionName="3.1">
-
-	
+	package="com.diymagicmirror.paidandroid" android:versionCode="12"
+	android:versionName="3.4">
 
 	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>   <!-- If target changes to 11 or higher, the menu three dots will not show on android tablets to get into settings -->      
        
@@ -31,10 +29,12 @@
 				android:resource="@xml/accessory_filter" />
 		</activity>
 		
+	<activity android:name="com.exoplatform.weather.controller.ActivityStockList" android:launchMode="singleTask"></activity>	
+		
 	<!-- Old Weather information screen 
      
 	<activity android:name="com.exoplatform.weather.controller.ActivityScreenLocation" android:launchMode="singleTask"></activity>
-	<activity android:name="com.exoplatform.weather.controller.ActivityStockList" android:launchMode="singleTask"></activity>	
+	
 	
 	-->
 		

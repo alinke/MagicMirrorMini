@@ -445,15 +445,15 @@
     <string name="pref_custom_modeDefault">false</string>
     <string name="menuCustomModeSummary">Add   custom video responses from your SD card. Refer to the documentation for the required SD card path and file naming conventions.</string>
     
-	<string name="weatherPinTouch">Weather Touch Sensor</string> 
+	<string name="weatherPinTouch">Weather Switch No Pull Up</string> 
 	<string name="pref_weatherPinTouch">pref_weatherPinTouch</string> 
 	<string name="pref_weatherPinTouchDefault">false</string> 
-	<string name="weatherPinTouchSummary">Turn on if the weather switch is a touch sensor, leave off if it is a normal momentary push button</string> 
+	<string name="weatherPinTouchSummary">Turn on if the weather switch is a momentary switch WITHOUT a pull up resistor. One pin of this switch should be connected to GND and the other the singal pin.</string> 
 	
-	<string name="stockPinTouch">Stock Touch Sensor</string> 
+	<string name="stockPinTouch">Stock Switch No Pull Up</string> 
 	<string name="pref_stockPinTouch">pref_weatherPinTouch</string> 
 	<string name="pref_stockPinTouchDefault">false</string> 
-	<string name="stockPinTouchSummary">Turn on if the stock switch is a touch sensor, leave off if it is a normal momentary push button</string> 
+	<string name="stockPinTouchSummary">Turn on if the weather switch is a momentary switch WITHOUT a pull up resistor. One pin of this switch should be connected to GND and the other the singal pin.</string> 
 	
 	<string name="weatherPinEnable">Enable Weather Button</string> 
 	<string name="pref_weatherPinEnable">pref_weatherPinEnable</string> 
@@ -464,6 +464,16 @@
 	<string name="pref_stockPinEnable">pref_stockPinEnable</string> 
 	<string name="stockPinEnableDefault">false</string> 
 	<string name="stockPinEnableSummary">Enable the stock button, this can be a momentary swtich or Seeed Grove touch sensor</string> 
+	
+	<string name="demoMode">Demo Mode</string> 
+	<string name="pref_demoMode">pref_demoMode</string> 
+	<string name="demoModeDefault">false</string> 
+	<string name="demoModeSummary">Demo mode if no internet connection, will play good stock and good weather automatically</string> 
+	
+	<string name="maxBotixSensor">MaxBotix Sonar Sensor</string> 
+	<string name="pref_maxBotixSensor">pref_maxBotixSensor</string> 
+	<string name="maxBotixSensorDefault">false</string> 
+	<string name="maxBotixSensorSummary">Select if using a MaxBotix EZ series sonar sensor for the proximity sensor</string> 
 	
 	 <!-- For weather settings -->  
     <string name="weatherSettingsTitle">Weather Settings</string>

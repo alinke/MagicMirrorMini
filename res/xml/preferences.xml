@@ -58,6 +58,12 @@
     android:summary="@string/menuDisplayDataSummary"/>
     
     <CheckBoxPreference
+    android:title="@string/maxBotixSensor"
+    android:key="pref_maxBotixSensor"    
+    android:defaultValue="@string/maxBotixSensorDefault"
+    android:summary="@string/maxBotixSensorSummary"/> 
+    
+    <CheckBoxPreference
     android:title="@string/characterChangePot"
     android:key="pref_pot_sensor"    
     android:defaultValue="@string/pref_pot_sensorDefault"
@@ -75,7 +81,6 @@
     android:defaultValue="@string/stockPinEnableDefault"
     android:summary="@string/stockPinEnableSummary"/>  
     
-     <!--
     
     <CheckBoxPreference
     android:title="@string/weatherPinTouch"
@@ -88,8 +93,6 @@
     android:key="pref_stockPinTouch"    
     android:defaultValue="@string/pref_stockPinTouchDefault"
     android:summary="@string/stockPinTouchSummary"/> 
-    
-    -->
     
     </PreferenceCategory>
 		
@@ -232,6 +235,12 @@
 	    android:maxLength="2"
 	    android:defaultValue="@string/pref_led_pinNumber_default_value"
 	    android:summary="@string/ledPinNumberSummary"/>   
+	    
+         <CheckBoxPreference
+	    android:title="@string/demoMode"
+	    android:key="pref_demoMode"    
+	    android:defaultValue="@string/demoModeDefault"
+	    android:summary="@string/demoModeSummary"/>  
 	    
       
     </PreferenceCategory>	
