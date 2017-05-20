@@ -236,12 +236,19 @@
 	    android:defaultValue="@string/pref_led_pinNumber_default_value"
 	    android:summary="@string/ledPinNumberSummary"/>   
 	    
-         <CheckBoxPreference
+        <CheckBoxPreference
 	    android:title="@string/demoMode"
 	    android:key="pref_demoMode"    
 	    android:defaultValue="@string/demoModeDefault"
 	    android:summary="@string/demoModeSummary"/>  
 	    
+        <CheckBoxPreference
+	    android:title="@string/ProxButton"
+	    android:key="pref_ProxButton"    
+	    android:defaultValue="@string/ProxButtonDefault"
+	    android:summary="@string/ProxButtonSummary"/>  
+	    
+      
       
     </PreferenceCategory>	
       

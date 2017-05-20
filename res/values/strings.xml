@@ -470,6 +470,11 @@
 	<string name="demoModeDefault">false</string> 
 	<string name="demoModeSummary">Demo mode if no internet connection, will play good stock and good weather automatically</string> 
 	
+	<string name="ProxButton">Proximity Video on Stock Button</string> 
+	<string name="pref_ProxButton">pref_ProxButton</string> 
+	<string name="ProxButtonDefault">false</string> 
+	<string name="ProxButtonSummary">Play the proximity videos instead of the stock video on button press, use this if you do not have a proximity sensor connected</string> 
+	
 	<string name="maxBotixSensor">MaxBotix Sonar Sensor</string> 
 	<string name="pref_maxBotixSensor">pref_maxBotixSensor</string> 
 	<string name="maxBotixSensorDefault">false</string> 

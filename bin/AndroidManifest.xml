@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.diymagicmirror.paidandroid" android:versionCode="12"
-	android:versionName="3.4">
+	package="com.diymagicmirror.paidandroid" android:versionCode="13"
+	android:versionName="3.5">
 
 	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>   <!-- If target changes to 11 or higher, the menu three dots will not show on android tablets to get into settings -->      
        

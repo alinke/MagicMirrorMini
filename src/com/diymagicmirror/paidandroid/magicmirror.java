@@ -234,6 +234,7 @@ public class magicmirror extends IOIOActivity   {
     private Boolean stockPinEnable_;
     private Boolean maxBotixSensor_;
     private Boolean demoMode_;
+    private Boolean proxButton_;
     
 
     @SuppressLint("NewApi")
@@ -1149,42 +1150,60 @@ public class magicmirror extends IOIOActivity   {
 					
 					if (stockPinEnable_ == true && stockSwitchValue == stockSwitchTrigger && playingFlag == 0) {
 						
-						playingFlag = 1;
-						
-						if (demoMode_ == true) {
+						if (proxButton_ == true ) {
 							
-							screenOn();
+							led_.write(true);
+							playingFlag = 1;	//set this so we don't play two videos at the same time
+							proxCounter = 0 ; //reset it for the next time
+							screenOn();	
+							
 							if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
 								vid.pause();  //we also need to reset the video path
-							}	
-							setVideoPath();
-							stockPriceChange = 9999999;   //making this a high number so it will always return the good stock video
-							setStockPath();		
-							vid.start();
+							}
+							videoCounter++;
+							setProxPath();
+							vid.start(); //play whatever video the path was pointing to
 						}
 						
 						else {
 						
-							stockUpdate(); //TO DO need to fix if user entered a bad ticker
-										
-							if (stocksCSVString != "") { 
+								playingFlag = 1;
+								
+								if (demoMode_ == true) {
 									
-									//playingFlag = 1;
 									screenOn();
 									if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
 										vid.pause();  //we also need to reset the video path
-									}
-									setVideoPath();									
-									setStockPath();								
+									}	
+									setVideoPath();
+									stockPriceChange = 9999999;   //making this a high number so it will always return the good stock video
+									setStockPath();		
 									vid.start();
-							}
-							else {
-								showToast("You have not entered any stocks yet"); 							
-								resetVideos();
-								//playingFlag = 0;
-							}
-						
-						}
+								}
+								
+								else {
+								
+									stockUpdate(); //TO DO need to fix if user entered a bad ticker
+												
+									if (stocksCSVString != "") { 
+											
+											//playingFlag = 1;
+											screenOn();
+											if (vid.isPlaying() == true) { //if we went here, it means the idle video was playing
+												vid.pause();  //we also need to reset the video path
+											}
+											setVideoPath();									
+											setStockPath();								
+											vid.start();
+									}
+									else {
+										showToast("You have not entered any stocks yet"); 							
+										resetVideos();
+										//playingFlag = 0;
+									}
+								
+								}
+						}	
 						
 					}
 				
@@ -1595,6 +1614,8 @@ public class magicmirror extends IOIOActivity   {
      proximity_sensor =  prefs.getBoolean("pref_proximity_sensor", false); //show the numeric alcohol value or not
      maxBotixSensor_ = prefs.getBoolean("pref_maxBotixSensor", false);
      demoMode_ = prefs.getBoolean("pref_demoMode", false);
+     proxButton_ = prefs.getBoolean("pref_ProxButton", false);
+     
     	
      stealth = prefs.getBoolean("pref_stealth_mode", false);
      custom_videos = prefs.getBoolean("pref_custom_mode", false);

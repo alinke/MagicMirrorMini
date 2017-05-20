@@ -437,9 +437,12 @@ containing a value of this type.
         public static final int FindPLacesButtonString=0x7f09003e;
         public static final int Graph_FQL_msg=0x7f0900d1;
         public static final int Graph_FQL_title=0x7f0900d0;
-        public static final int Instructions=0x7f09019b;
+        public static final int Instructions=0x7f09019f;
         public static final int OKText=0x7f09006f;
-        public static final int OpenWeatherMapAPIKey=0x7f090194;
+        public static final int OpenWeatherMapAPIKey=0x7f090198;
+        public static final int ProxButton=0x7f090181;
+        public static final int ProxButtonDefault=0x7f090183;
+        public static final int ProxButtonSummary=0x7f090184;
         public static final int TaxiMagicButtonString=0x7f090033;
         public static final int access_token=0x7f0900b8;
         public static final int actions_facebook_fetching=0x7f090106;
@@ -563,9 +566,9 @@ containing a value of this type.
         public static final int level3Result=0x7f090075;
         public static final int level4Result=0x7f090076;
         public static final int listSummaryVoice=0x7f09000b;
-        public static final int maxBotixSensor=0x7f090181;
-        public static final int maxBotixSensorDefault=0x7f090183;
-        public static final int maxBotixSensorSummary=0x7f090184;
+        public static final int maxBotixSensor=0x7f090185;
+        public static final int maxBotixSensorDefault=0x7f090187;
+        public static final int maxBotixSensorSummary=0x7f090188;
         public static final int max_value=0x7f090021;
         public static final int menuCalibrationTitle=0x7f090098;
         public static final int menuCountdown=0x7f090091;
@@ -639,8 +642,8 @@ containing a value of this type.
         public static final int notFoundString=0x7f090069;
         public static final int notFoundStringTitle=0x7f09006a;
         public static final int ok=0x7f0900d3;
-        public static final int openWeatherMapAPIDefault=0x7f090196;
-        public static final int openWeatherMapAPISummary=0x7f090197;
+        public static final int openWeatherMapAPIDefault=0x7f09019a;
+        public static final int openWeatherMapAPISummary=0x7f09019b;
         /**  Option menu 
          */
         public static final int option_menu_about=0x7f09012f;
@@ -665,6 +668,7 @@ containing a value of this type.
         public static final int pot_label=0x7f090003;
         public static final int prefSummary=0x7f09000f;
         public static final int prefTitle=0x7f090007;
+        public static final int pref_ProxButton=0x7f090182;
         public static final int pref_bad_stock_default_value=0x7f090151;
         public static final int pref_bad_stock_value=0x7f090150;
         public static final int pref_countdown=0x7f09001a;
@@ -684,9 +688,9 @@ containing a value of this type.
         public static final int pref_hideTaximagicTitle=0x7f09010a;
         public static final int pref_led_pinNumber=0x7f090166;
         public static final int pref_led_pinNumber_default_value=0x7f090167;
-        public static final int pref_maxBotixSensor=0x7f090182;
+        public static final int pref_maxBotixSensor=0x7f090186;
         public static final int pref_max_value=0x7f090020;
-        public static final int pref_openWeatherMapAPI=0x7f090195;
+        public static final int pref_openWeatherMapAPI=0x7f090199;
         public static final int pref_pot_pinNumber=0x7f09015a;
         public static final int pref_pot_pinNumber_default_value=0x7f09015b;
         public static final int pref_pot_sensor=0x7f090040;
@@ -720,14 +724,14 @@ containing a value of this type.
         public static final int pref_tweet_few_drinks=0x7f090028;
         public static final int pref_tweet_no_drinks=0x7f090026;
         public static final int pref_twitter_post_default=0x7f09010f;
-        public static final int pref_weatherCity=0x7f090191;
-        public static final int pref_weatherCountry=0x7f09018b;
+        public static final int pref_weatherCity=0x7f090195;
+        public static final int pref_weatherCountry=0x7f09018f;
         public static final int pref_weatherPinEnable=0x7f090176;
         public static final int pref_weatherPinTouch=0x7f09016e;
         public static final int pref_weatherPinTouchDefault=0x7f09016f;
-        public static final int pref_weatherZip=0x7f090188;
-        public static final int pref_weatherZipDefault=0x7f090189;
-        public static final int pref_weatherZipSummary=0x7f09018a;
+        public static final int pref_weatherZip=0x7f09018c;
+        public static final int pref_weatherZipDefault=0x7f09018d;
+        public static final int pref_weatherZipSummary=0x7f09018e;
         public static final int pref_weather_pinNumber=0x7f09015e;
         public static final int pref_weather_pinNumber_default_value=0x7f09015f;
         public static final int proxLowerRangeDefault=0x7f09001d;
@@ -762,7 +766,7 @@ containing a value of this type.
         public static final int statusReadyText=0x7f09007d;
         public static final int statusResettingText=0x7f09007a;
         public static final int statusSimulationModeText=0x7f090079;
-        public static final int stockButtonLabel=0x7f090199;
+        public static final int stockButtonLabel=0x7f09019d;
         public static final int stockPinEnable=0x7f090179;
         public static final int stockPinEnableDefault=0x7f09017b;
         public static final int stockPinEnableSummary=0x7f09017c;
@@ -857,15 +861,15 @@ containing a value of this type.
         public static final int view_post=0x7f0900c5;
         public static final int view_source=0x7f0900c4;
         public static final int view_url=0x7f0900be;
-        public static final int weatherButtonLabel=0x7f090198;
-        public static final int weatherCity=0x7f090190;
-        public static final int weatherCityDefault=0x7f090192;
-        public static final int weatherCityDefaultSummary=0x7f090193;
-        public static final int weatherCountryDefault=0x7f09018f;
-        public static final int weatherCountrySummary=0x7f09018d;
-        public static final int weatherCountrySummaryDialogTitle=0x7f09018e;
-        public static final int weatherCountryTitle=0x7f09018c;
-        public static final int weatherForecastLabel=0x7f09019a;
+        public static final int weatherButtonLabel=0x7f09019c;
+        public static final int weatherCity=0x7f090194;
+        public static final int weatherCityDefault=0x7f090196;
+        public static final int weatherCityDefaultSummary=0x7f090197;
+        public static final int weatherCountryDefault=0x7f090193;
+        public static final int weatherCountrySummary=0x7f090191;
+        public static final int weatherCountrySummaryDialogTitle=0x7f090192;
+        public static final int weatherCountryTitle=0x7f090190;
+        public static final int weatherForecastLabel=0x7f09019e;
         public static final int weatherPinEnable=0x7f090175;
         public static final int weatherPinEnableDefault=0x7f090177;
         public static final int weatherPinEnableSummary=0x7f090178;
@@ -875,9 +879,9 @@ containing a value of this type.
         public static final int weatherPinTouchSummary=0x7f090170;
         /**  For weather settings 
          */
-        public static final int weatherSettingsTitle=0x7f090185;
-        public static final int weatherSettingsTitleSummary=0x7f090186;
-        public static final int weatherZip=0x7f090187;
+        public static final int weatherSettingsTitle=0x7f090189;
+        public static final int weatherSettingsTitleSummary=0x7f09018a;
+        public static final int weatherZip=0x7f09018b;
         public static final int weather_menu_setting=0x7f090146;
         public static final int whereamiButtonString=0x7f090034;
         public static final int yes=0x7f0900d6;
